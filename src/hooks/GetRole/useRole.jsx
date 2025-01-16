@@ -10,7 +10,7 @@ const useRole = () => {
     const {user, loading} = useAuth();
 
 
-    const {data: role = {} , isLoading: adminLoading} = useQuery({
+    const {data: role = {} , isLoading: roleLoading} = useQuery({
         queryKey: ["role", user?.email],
         enabled: !loading && !!user?.email,
         queryFn: async ()=> {
@@ -19,7 +19,7 @@ const useRole = () => {
         }
     }) 
 
-    return {role, adminLoading};
+    return {role, roleLoading};
 };
 
 export default useRole;

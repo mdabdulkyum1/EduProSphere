@@ -22,6 +22,9 @@ export default {
           border: "#374151", 
         },
       },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite', // Custom slow spin animation
+      },
     },
   },
   plugins: [

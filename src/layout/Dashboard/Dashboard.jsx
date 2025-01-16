@@ -1,16 +1,18 @@
-import {  useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
 import useRole from "../../hooks/GetRole/useRole";
+import Loading from "../../components/shared/Loading/Loading";
 
 const Dashboard = () => {
   const { user } = useAuth(); 
-  const {role} = useRole();
+  const {role, roleLoading } = useRole();
   const navigate = useNavigate();
+
+  if(roleLoading){
+    return <Loading message="Loading Role Data"></Loading>
+  }
   
-  useEffect(() => {
-    if (!user) navigate("/login");
-  }, [user, navigate]);
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
@@ -65,7 +67,7 @@ const Dashboard = () => {
 
         {/* Main Content Area */}
         <div className="flex-grow p-6">
-          <h2 className="text-3xl font-bold mb-6">Welcome, {user?.displayName} <span className="text-primary">{role}</span></h2>
+          <h2 className="text-3xl font-bold mb-6">Welcome, {user?.displayName} <span className="text-primary">{role || "N/A"}</span></h2>
           <div className="space-y-8">
             {role === "student" && (
               <>
