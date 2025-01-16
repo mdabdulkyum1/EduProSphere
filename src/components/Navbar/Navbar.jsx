@@ -2,6 +2,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import useScrollDirection from "../../hooks/ScrollDirection/useScrollDirection";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
 import ThemeToggle from "./../../hooks/ThemeToggle/ThemeToggle";
+import logo from "../../assets/logo.png";
+import darkLogo from "../../assets/darkLogo.png";
 
 const Navbar = () => {
   const isVisible = useScrollDirection();
@@ -23,12 +25,12 @@ const Navbar = () => {
           className={({ isActive }) =>
             `px-4 py-2 rounded ${
               isActive
-                ? "text-primary font-bold border-b-2 border-primary"
+                ? "dark:text-primary border-b-2 border-primary"
                 : "text-light-text hover:text-primary dark:text-dark-text dark:hover:text-accent"
             }`
           }
         >
-          HOME
+          Home
         </NavLink>
       </li>
       <li>
@@ -37,7 +39,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             `px-4 py-2 rounded ${
               isActive
-                ? "text-primary font-bold border-b-2 border-primary"
+                ? "dark:text-primary border-b-2 border-primary"
                 : "text-light-text hover:text-primary dark:text-dark-text dark:hover:text-accent"
             }`
           }
@@ -51,7 +53,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             `px-4 py-2 rounded ${
               isActive
-                ? "text-primary font-bold border-b-2 border-primary"
+                ? "dark:text-primary border-b-2 border-primary"
                 : "text-light-text hover:text-primary dark:text-dark-text dark:hover:text-accent"
             }`
           }
@@ -63,7 +65,7 @@ const Navbar = () => {
   );
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full transition-transform duration-300 ${
+      className={`border-b dark:border-b-slate-500 fixed top-0 left-0 z-50 w-full transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       } bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text`}
     >
@@ -89,18 +91,34 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-light-background dark:bg-dark-background rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-light-background dark:bg-dark-background rounded-box z-[1]  mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>
           </div>
-          <Link to="/" className="text-xl text-primary dark:text-accent">
-            EduProSphere
-          </Link>
+          <div className="hidden sm:flex items-center justify-between">
+            <img
+              src={darkLogo}
+              alt="Light Logo"
+              className="w-16 hidden dark:block"
+            />
+            <img
+              src={logo}
+              alt="Dark Logo"
+              className="w-16 block dark:hidden"
+            />
+
+            <Link
+              to="/"
+              className="text-xl font-bold text-primary dark:text-accent sm:ml-4"
+            >
+              EduProSphere
+            </Link>
+          </div>
         </div>
         {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-light-text dark:text-dark-text">
+          <ul className="menu menu-horizontal space-x-2 px-1 text-light-text dark:text-dark-text">
             {links}
           </ul>
         </div>
