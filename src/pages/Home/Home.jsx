@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import FeedbackSection from "./Feedback";
 import InspireTeachersSection from "./InspireTeachersSection";
+import JoinCommunitySection from "./JoinCommunitySection";
 import LearningPathsSection from "./LearningPathsSection";
 import PartnersSection from "./PartnersSection";
 import PopularClasses from "./PopularClasses";
@@ -17,6 +18,7 @@ const Home = () => {
             <StatsSection></StatsSection>
             <InspireTeachersSection></InspireTeachersSection>
             <LearningPathsSection></LearningPathsSection>
+            <JoinCommunitySection></JoinCommunitySection>
         </div>
     );
 };
