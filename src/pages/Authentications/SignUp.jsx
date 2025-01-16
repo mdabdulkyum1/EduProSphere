@@ -29,18 +29,18 @@ const SignUp = () => {
     const photoFile = photo[0];
     const photoUrl = await imageUpload(photoFile);
 
-    if(loading){
+    if (loading) {
       Swal.fire({
-        title: 'Registering User...',
-        text: 'Please wait while we process the registration.',
-        icon: 'info',
+        title: "Registering User...",
+        text: "Please wait while we process the registration.",
+        icon: "info",
         showConfirmButton: false,
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+          Swal.showLoading();
+        },
+      });
     }
 
     try {
@@ -49,14 +49,14 @@ const SignUp = () => {
       const dbData = await saveUser(result?.user);
 
       if (result?.user && dbData.insertedId) {
-        setLoading(false)
+        setLoading(false);
 
         Swal.fire({
-          title: 'Success!',
-          text: 'User registration completed successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK'
-      });
+          title: "Success!",
+          text: "User registration completed successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
         navigate(targetPath);
         reset();
       }
@@ -72,7 +72,9 @@ const SignUp = () => {
       </Helmet>
       <div className="absolute top-2 left-52">
         <Link to="/">
-          <button className="btn btn-sm bg-yellow-500">Back to home</button>
+          <button className="btn btn-sm bg-accent text-light-text dark:bg-dark-background dark:text-dark-text border dark:border-dark-border">
+            Back to home
+          </button>
         </Link>
       </div>
       <div
@@ -83,17 +85,17 @@ const SignUp = () => {
           backgroundPosition: "center",
         }}
       >
-        <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full flex flex-col md:flex-row">
+        <div className="bg-light-background dark:bg-dark-background shadow-lg rounded-lg p-8 max-w-4xl w-full flex flex-col md:flex-row">
           {/* Form Section */}
           <div className="w-full md:w-1/2 md:pr-8 mb-6 md:mb-0">
-            <h2 className="text-2xl font-bold mb-6 text-center md:text-left">
+            <h2 className="text-2xl font-bold mb-6 text-center md:text-left text-primary dark:text-accent">
               Sign Up
             </h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Name Input */}
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-medium mb-1 text-light-text dark:text-dark-text"
                   htmlFor="name"
                 >
                   Name
@@ -104,18 +106,20 @@ const SignUp = () => {
                   name="name"
                   {...register("name", { required: true })}
                   placeholder="Type here"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-light-border dark:border-dark-border rounded-lg p-2 bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text"
                   required
                 />
                 {errors.name && (
-                  <span className="text-red-500">Name field is required</span>
+                  <span className="text-accent dark:text-accent">
+                    Name field is required
+                  </span>
                 )}
               </div>
 
               {/* Email Input */}
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-medium mb-1 text-light-text dark:text-dark-text"
                   htmlFor="email"
                 >
                   Email
@@ -126,18 +130,20 @@ const SignUp = () => {
                   name="email"
                   {...register("email", { required: true })}
                   placeholder="Type here"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-light-border dark:border-dark-border rounded-lg p-2 bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text"
                   required
                 />
                 {errors.email && (
-                  <span className="text-red-500">Email field is required</span>
+                  <span className="text-accent dark:text-accent">
+                    Email field is required
+                  </span>
                 )}
               </div>
 
               {/* Photo Input */}
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-medium mb-1 text-light-text dark:text-dark-text"
                   htmlFor="photo"
                 >
                   Photo
@@ -148,19 +154,21 @@ const SignUp = () => {
                   {...register("photo", {
                     required: "Choose a Profile Photo!",
                   })}
-                  className="file-input w-full max-w-xs border border-gray-300 rounded-lg bg-yellow-500 text-gray-700 px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50"
+                  className="file-input w-full max-w-xs border border-light-border dark:border-dark-border rounded-lg bg-primary dark:bg-accent text-light-text dark:text-dark-text px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50"
                 />
               </div>
 
               {/* Error Messages */}
               {errors.photo && (
-                <span className="text-red-500">{errors.photo.message}</span>
+                <span className="text-accent dark:text-accent">
+                  {errors.photo.message}
+                </span>
               )}
 
               {/* Password Input */}
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-medium mb-1 text-light-text dark:text-dark-text"
                   htmlFor="password"
                 >
                   Password
@@ -186,12 +194,10 @@ const SignUp = () => {
                     },
                   })}
                   placeholder="Enter your password"
-                  className="w-full border border-gray-300 rounded-lg p-2"
+                  className="w-full border border-light-border dark:border-dark-border rounded-lg p-2 bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text"
                 />
-
-                {/* Error Messages */}
                 {errors.password && (
-                  <span className="text-red-500">
+                  <span className="text-accent dark:text-accent">
                     {errors.password.message}
                   </span>
                 )}
@@ -200,32 +206,42 @@ const SignUp = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-yellow-600 text-white py-2 rounded-lg font-medium"
+                className="w-full bg-primary dark:bg-accent text-white py-2 rounded-lg font-medium hover:bg-accent hover:dark:bg-primary transition-all duration-200"
               >
                 Sign Up
               </button>
             </form>
 
             {/* Login Redirect */}
-            <p className="text-sm text-gray-500 mt-4 text-center md:text-left">
+            <p className="text-sm text-light-text dark:text-dark-text mt-4 text-center md:text-left">
               Already registered?{" "}
-              <Link to="/login" className="text-yellow-600 font-medium">
+              <Link
+                to="/login"
+                className="text-primary dark:text-accent font-medium"
+              >
                 Go to log in
               </Link>
             </p>
 
             {/* Social Media Sign Up */}
             <div className="flex items-center justify-center mt-6">
-              <p className="text-sm text-gray-500">Or sign up with</p>
+              <p className="text-sm text-light-text dark:text-dark-text">
+                Or sign up with
+              </p>
             </div>
             <div className="flex justify-center mt-4 space-x-4">
-              {/* Social Media Buttons */}
-              <button className="p-3 bg-gray-100 rounded-full shadow-lg">
-                <FaFacebook className="text-blue-600" size={24} />
+              <button className="p-3 bg-light-background dark:bg-dark-background rounded-full shadow-lg hover:bg-light-border dark:hover:bg-dark-border transition-all">
+                <FaFacebook
+                  className="text-secondary dark:text-light-background"
+                  size={24}
+                />
               </button>
               <ContinueGoogle></ContinueGoogle>
-              <button className="p-3 bg-gray-100 rounded-full shadow-lg">
-                <FaGithub className="text-gray-800" size={24} />
+              <button className="p-3 bg-light-background dark:bg-dark-background rounded-full shadow-lg hover:bg-light-border dark:hover:bg-dark-border transition-all">
+                <FaGithub
+                  className="text-gray-800 dark:text-light-background"
+                  size={24}
+                />
               </button>
             </div>
           </div>

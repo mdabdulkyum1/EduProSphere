@@ -22,17 +22,18 @@ const router = createBrowserRouter([
             {
                 path: "tech-on",
                 element: <TechOn></TechOn>
-            },
-            {
-                path: "login",
-                element: <Login></Login>
-            },
-            {
-                path: "signup",
-                element: <SignUp></SignUp>
             }
         ]
+    },
+    {
+        path: "login",
+        element: <Login></Login>
+    },
+    {
+        path: "signup",
+        element: <SignUp></SignUp>
     }
+
 ]);
 
 export default router;
