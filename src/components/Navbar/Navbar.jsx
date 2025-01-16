@@ -115,6 +115,12 @@ const Navbar = () => {
               EduProSphere
             </Link>
           </div>
+            <Link
+              to="/"
+              className="sm:hidden text-xl font-bold text-primary dark:text-accent sm:ml-4"
+            >
+              EduProSphere
+            </Link>
         </div>
         {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">

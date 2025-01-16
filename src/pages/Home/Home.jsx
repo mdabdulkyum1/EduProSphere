@@ -1,8 +1,8 @@
 
 const Home = () => {
     return (
-        <div className="py-16">
-            Home
+        <div className="pt-20">
+            <h1>Home</h1>
         </div>
     );
 };
