@@ -4,6 +4,7 @@ import useAuth from "../../hooks/GetAuthInfo/useAuth";
 import ThemeToggle from "./../../hooks/ThemeToggle/ThemeToggle";
 import logo from "../../assets/logo.png";
 import darkLogo from "../../assets/darkLogo.png";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
   const isVisible = useScrollDirection();
@@ -63,6 +64,26 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const dropdownLinks = (
+    <>
+      <li>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded ${
+              isActive
+                ? "dark:text-primary border-b-2 border-primary"
+                : "text-light-text hover:text-primary dark:text-dark-text dark:hover:text-accent"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+      </li>
+    </>
+  );
+
   return (
     <nav
       className={`border-b dark:border-b-slate-500 fixed top-0 left-0 z-50 w-full transition-transform duration-300 ${
@@ -115,12 +136,12 @@ const Navbar = () => {
               EduProSphere
             </Link>
           </div>
-            <Link
-              to="/"
-              className="sm:hidden text-xl font-bold text-primary dark:text-accent sm:ml-4"
-            >
-              EduProSphere
-            </Link>
+          <Link
+            to="/"
+            className="sm:hidden text-xl font-bold text-primary dark:text-accent sm:ml-4"
+          >
+            EduProSphere
+          </Link>
         </div>
         {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">
@@ -134,19 +155,67 @@ const Navbar = () => {
           {loading ? (
             <div className="skeleton h-12 w-12 shrink-0 border border-accent rounded-full"></div>
           ) : user ? (
+            // <div className="flex items-center gap-2">
+            //   <img
+            //     src={user?.photoURL}
+            //     referrerPolicy="no-referrer"
+            //     alt={user?.displayName}
+            //     title={user?.displayName}
+            //     className="h-12 w-12 rounded-full border border-primary dark:border-accent"
+            //   />
+            //   <button
+            //     className="btn bg-accent text-light-text dark:text-dark-text"
+            //     onClick={handelLogOut}
+            //   >
+            //     LogOut
+            //   </button>
+            // </div>
             <div className="flex items-center gap-2">
-              <img
-                src={user?.photoURL}
-                referrerPolicy="no-referrer"
-                alt={user?.displayName}
-                title={user?.displayName}
-                className="h-12 w-12 rounded-full border border-primary dark:border-accent"
-              />
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full border border- ">
+                    <Tooltip id="my-tooltip" className="z-50" place="left" />
+                    <img
+                      alt={user?.displayName}
+                      src={user?.photoURL}
+                      referrerPolicy="no-referrer"
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content={`${user?.displayName}`}
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content space-y-3 bg-light-bg  border border-transparent dark:border-white rounded-lg z-10 mt-3 p-4 shadow-lg w-64 transition-all duration-300"
+                >
+                  {/* User Display Name */}
+                  <li className="text-center text-lg font-semibold  mb-2">
+                    {user?.displayName || "Guest"}
+                  </li>
+
+                  {/* Dropdown Links */}
+                  <ul className="">{dropdownLinks}</ul>
+
+                  {/* Logout Button */}
+                  <li className="mt-2">
+                    <button
+                      onClick={handelLogOut}
+                      className="btn-sm bg-primary text-white rounded-md transition-colors w-full"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
               <button
-                className="btn bg-accent text-light-text dark:text-dark-text"
                 onClick={handelLogOut}
+                className="btn-sm bg-primary text-white rounded-md transition-colors"
               >
-                LogOut
+                Logout
               </button>
             </div>
           ) : (
