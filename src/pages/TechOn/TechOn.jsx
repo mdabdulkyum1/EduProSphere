@@ -1,20 +1,28 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
-import { useMutation } from '@tanstack/react-query';
-import useAxiosSecure from './../../hooks/AxiosSecure/useAxiosSecure';
-import Swal from 'sweetalert2';
-
+import { useMutation, useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "./../../hooks/AxiosSecure/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const TeachOn = () => {
-    const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-    const mutation = useMutation({
-      mutationFn: (teacherData)=> {
-          return axiosSecure.post('/teacher', teacherData);
-      }
-    })
-    
+  const mutation = useMutation({
+    mutationFn: (teacherData) => {
+      return axiosSecure.post("/teacher", teacherData);
+    },
+  });
+
+  const { data: myReq = {}, refetch } = useQuery({
+    queryKey: ["my-req", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/my-request/${user?.email}`);
+      return data;
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -22,27 +30,42 @@ const TeachOn = () => {
     formState: { errors },
   } = useForm();
 
-
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     const teachData = { ...data, status: "pending" };
 
-    try{
-        const {data} = await mutation.mutateAsync(teachData);
-        if (data?.insertedId) {
-          reset();
-          Swal.fire({
-            title: "Success",
-            text: "Please Wait for admin approval!",
-            icon: "success",
-          });
-        }
-    }catch(err){
+    try {
+      const { data } = await mutation.mutateAsync(teachData);
+      if (data?.insertedId) {
+        reset();
+        Swal.fire({
+          title: "Success",
+          text: "Please Wait for admin approval!",
+          icon: "success",
+        });
+      }
+    } catch (err) {
       console.error(err);
-      
     }
   };
 
-  
+  const handelUpdateStatus = async() => {
+        const newStatus = {
+          id: myReq._id, 
+          status: "pending"
+        }
+        try{
+          const {data} = await axiosSecure.patch(`/teacher-pending`, newStatus);
+          if(data?.modifiedCount > 0 ){
+             Swal.fire({
+             title: "Wait for Admin response!",
+             icon: "success"
+          });
+              refetch();
+          }
+      }catch(err){
+        console.error(err);
+      }
+  }
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text pt-20">
@@ -72,9 +95,11 @@ const TeachOn = () => {
               )}
             </div>
 
-          {/* Image (User Image) */}
-          <div className="space-y-2">
-              <label className="block text-lg font-medium" htmlFor="image">Image</label>
+            {/* Image (User Image) */}
+            <div className="space-y-2">
+              <label className="block text-lg font-medium" htmlFor="image">
+                Image
+              </label>
               <div className="flex justify-center">
                 {/* Image Preview */}
                 <img
@@ -83,7 +108,9 @@ const TeachOn = () => {
                   className="w-32 h-32 object-cover rounded-full"
                 />
               </div>
-              <label className="block text-lg font-medium" htmlFor="image">You can change url</label>
+              <label className="block text-lg font-medium" htmlFor="image">
+                You can change url
+              </label>
               <input
                 type="text"
                 id="photo"
@@ -181,15 +208,27 @@ const TeachOn = () => {
 
             {/* Submit Button */}
             <div className="mb-4">
-              <button
-                type="submit"
-                className="w-full py-3 bg-primary text-white font-bold rounded-md hover:bg-secondary transition duration-200"
-              >
-                Submit for Review
-              </button>
+              {myReq.status === "rejected" ? (
+               ""
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-primary text-white font-bold rounded-md hover:bg-secondary transition duration-200"
+                >
+                  Submit for Review
+                </button>
+              )}
             </div>
           </div>
         </form>
+              <div className="">
+                  {myReq.status === "rejected" &&  <button
+                  onClick={handelUpdateStatus}
+                  className="w-full py-3 bg-primary text-white font-bold rounded-md hover:bg-secondary transition duration-200"
+                >
+                  request to another button
+                </button>}
+              </div>
       </div>
     </div>
   );

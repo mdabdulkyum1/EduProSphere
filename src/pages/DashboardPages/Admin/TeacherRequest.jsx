@@ -87,8 +87,42 @@ const TeacherRequest = () => {
         const {data} = await axiosSecure.patch(`/teacher-request`, newStatus);
         if(data?.updatedRequestStatus?.modifiedCount > 0 && data?.updatedUserRole?.modifiedCount > 0 ){
            Swal.fire({
-          title: "Approved!",
+          title: "accepted!",
           icon: "success"
+        });
+            refetch();
+        }
+    }catch(err){
+      console.error(err);
+    }
+      }
+    });
+
+  } 
+
+  const handelReject = (id, email, status ) => {
+    const newStatus = {
+      id,
+      status,
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2e7",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Approve!"
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        
+      try{
+        const {data} = await axiosSecure.patch(`/teacher-rejected`, newStatus);
+        if(data?.modifiedCount > 0 ){
+           Swal.fire({
+           title: "rejected!",
+           icon: "info"
         });
             refetch();
         }
@@ -141,23 +175,24 @@ const TeacherRequest = () => {
                   {request.category}
                 </td>
                 <td className="p-3 border border-light-border dark:border-dark-border capitalize">
-                  <span className={`font-bold ${request.status === "approved" ? "text-primary" : "text-red-600"}`}>{request.status}</span>
+                  <span className={`font-bold ${request.status === "accepted" ? "text-primary" : "text-red-600"}`}>{request.status}</span>
                 </td>
                 <td className="p-3 border border-light-border dark:border-dark-border">
                   <button
-                  onClick={()=>handelApprove(request._id, request.email, "approved")}
+                  onClick={()=>handelApprove(request._id, request.email, "accepted")}
                     className={`bg-green-500 text-white px-3 py-1 rounded disabled:opacity-50 disabled:cursor-not-allowed ${
                       request.status === "rejected" ? "cursor-not-allowed" : ""
                     }`}
-                    disabled={request.status === "rejected" || request.status === "approved"}
+                    disabled={request.status === "rejected" || request.status === "accepted"}
                   >
                     Approve
                   </button>
                   <button
+                    onClick={()=>handelReject(request._id, request.email, "rejected")}
                     className={`bg-red-500 text-white px-3 py-1 rounded ml-2 disabled:opacity-50 disabled:cursor-not-allowed ${
                       request.status === "rejected" ?   "cursor-not-allowed" : ""
                     }`}
-                    disabled={request.status === "rejected" || request.status === "approved"}
+                    disabled={request.status === "rejected" || request.status === "accepted"}
                   >
                     Reject
                   </button>
