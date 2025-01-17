@@ -1,93 +1,177 @@
-
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { 
+  FaHome, 
+  FaUser, 
+  FaBook, 
+  FaChalkboardTeacher, 
+  FaPlusCircle, 
+  FaUsers, 
+  FaListAlt, 
+  FaSignOutAlt, 
+  FaBars, 
+  FaTimes 
+} from "react-icons/fa";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
 import useRole from "../../hooks/GetRole/useRole";
 import Loading from "../../components/shared/Loading/Loading";
+import StudentDashboard from "../StudentDashboard/StudentDashboard";
+import TeacherDashboard from "../TeacherDashboard/TeacherDashboard";
+import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
 const Dashboard = () => {
-  const { user } = useAuth(); 
-  const {role, roleLoading } = useRole();
-  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const { role, roleLoading } = useRole();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  if(roleLoading){
-    return <Loading message="Loading Role Data"></Loading>
+  if (roleLoading) {
+    return <Loading message="Loading Role Data" />;
   }
-  
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   return (
-    <div className="min-h-screen bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
+    <div className="min-h-screen flex bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
       {/* Sidebar */}
-      <div className="flex flex-col lg:flex-row">
-        <div className="w-full lg:w-64 bg-primary text-white p-6">
-          <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-          <ul>
-            {role === "student" && (
-              <>
-                <li>
-                  <button onClick={() => navigate("/dashboard/my-enroll-class")}>
-                    My Enroll Class
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/profile")}>Profile</button>
-                </li>
-              </>
-            )}
-            {role === "teacher" && (
-              <>
-                <li>
-                  <button onClick={() => navigate("/dashboard/my-classes")}>My Classes</button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/add-class")}>Add Class</button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/profile")}>Profile</button>
-                </li>
-              </>
-            )}
-            {role === "admin" && (
-              <>
-                <li>
-                  <button onClick={() => navigate("/dashboard/teacher-request")}>Teacher Request</button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/users")}>Users</button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/all-classes")}>All Classes</button>
-                </li>
-                <li>
-                  <button onClick={() => navigate("/dashboard/profile")}>Profile</button>
-                </li>
-              </>
-            )}
-          </ul>
+      <div
+        className={`fixed top-0 left-0 z-40 w-64 h-screen bg-primary text-white p-6 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 lg:translate-x-0`}
+      >
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <button
+            className="text-white text-2xl lg:hidden"
+            onClick={toggleSidebar}
+          >
+            <FaTimes />
+          </button>
         </div>
+        <ul className="space-y-4">
+          <li>
+            <NavLink to="/" className="flex items-center space-x-2 hover:text-accent">
+              <FaHome /> <span>Home</span>
+            </NavLink>
+          </li>
+          {role === "student" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/my-enroll-class"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaBook /> <span>My Enroll Class</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/profile"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaUser /> <span>Profile</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+          {role === "teacher" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/my-classes"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaChalkboardTeacher /> <span>My Classes</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/add-class"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaPlusCircle /> <span>Add Class</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/profile"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaUser /> <span>Profile</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+          
+          {role === "admin" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/teacher-request"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaUsers /> <span>Teacher Request</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/users"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaUsers /> <span>Users</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/all-classes"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaListAlt /> <span>All Classes</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/profile"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaUser /> <span>Profile</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+          <div className="divider"></div>
+          <li>
+            <NavLink to="/" className="flex items-center space-x-2 hover:text-accent">
+              <FaHome /> <span>Home</span>
+            </NavLink>
+          </li>
+        </ul>
+        <button
+          onClick={logout}
+          className="flex items-center space-x-2 text-red-500 hover:text-red-700 mt-8"
+        >
+          <FaSignOutAlt /> <span>Logout</span>
+        </button>
+      </div>
 
-        {/* Main Content Area */}
-        <div className="flex-grow p-6">
-          <h2 className="text-3xl font-bold mb-6">Welcome, {user?.displayName} <span className="text-primary">{role || "N/A"}</span></h2>
-          <div className="space-y-8">
-            {role === "student" && (
-              <>
-                {/* Student Specific Pages */}
-                <StudentDashboard />
-              </>
-            )}
-            {role === "teacher" && (
-              <>
-                {/* Teacher Specific Pages */}
-                <TeacherDashboard />
-              </>
-            )}
-            {role === "admin" && (
-              <>
-                {/* Admin Specific Pages */}
-                <AdminDashboard />
-              </>
-            )}
-          </div>
+      {/* Hamburger Menu for Small Screens */}
+      <button
+        className="fixed top-4 left-4 z-50 text-primary text-2xl lg:hidden"
+        onClick={toggleSidebar}
+      >
+        <FaBars />
+      </button>
+
+      {/* Main Content */}
+      <div className="flex-grow p-6 lg:ml-64">
+        <h2 className="text-3xl font-bold mt-6 md:mt-0 mb-6">
+          Welcome, {user?.displayName} <span className="text-primary">{role || "N/A"}</span>
+        </h2>
+        <div className="space-y-8">
+          {role === "student" && <StudentDashboard />}
+          {role === "teacher" && <TeacherDashboard />}
+          {role === "admin" && <AdminDashboard />}
         </div>
       </div>
     </div>
@@ -95,48 +179,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-const StudentDashboard = () => {
-  return (
-    <div className="space-y-6">
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">My Enrolled Classes</h3>
-        {/* Display Enrolled Classes */}
-      </div>
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">My Profile</h3>
-        {/* Display Profile */}
-      </div>
-    </div>
-  );
-};
-
-const TeacherDashboard = () => {
-  return (
-    <div className="space-y-6">
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">My Classes</h3>
-        {/* Display Teacher's Classes */}
-      </div>
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">Add New Class</h3>
-        {/* Add New Class Form */}
-      </div>
-    </div>
-  );
-};
-
-const AdminDashboard = () => {
-  return (
-    <div className="space-y-6">
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">Teacher Requests</h3>
-        {/* Display Teacher Requests */}
-      </div>
-      <div className="bg-white dark:bg-dark-background p-6 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold mb-4">Manage Users</h3>
-        {/* Display Users List */}
-      </div>
-    </div>
-  );
-};
