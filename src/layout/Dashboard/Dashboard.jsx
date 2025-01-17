@@ -10,7 +10,8 @@ import {
   FaListAlt, 
   FaSignOutAlt, 
   FaBars, 
-  FaTimes 
+  FaTimes,
+  FaClipboardList  
 } from "react-icons/fa";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
 import useRole from "../../hooks/GetRole/useRole";
@@ -71,6 +72,14 @@ const Dashboard = () => {
                   className="flex items-center space-x-2 hover:text-accent"
                 >
                   <FaUser /> <span>Profile</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/my-request"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaClipboardList /> <span>My Request</span>
                 </NavLink>
               </li>
             </>

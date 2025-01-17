@@ -10,7 +10,7 @@ function TeacherRoute({ children }) {
   const { role, roleLoading } = useRole();
 
   if (loading && roleLoading) {
-    return <Loading></Loading>;
+    return <Loading message="loading..."></Loading>;
   }
 
   if (user && role === "teacher") {

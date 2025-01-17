@@ -10,7 +10,7 @@ const Loading = ({ message = "Loading..." }) => {
           <div className="absolute border-4 border-t-transparent border-green-500 rounded-full w-12 h-12 animate-spin-slow"></div>
         </div>
         {/* Loading Message */}
-        <h1 className="mt-6 text-2xl font-semibold text-gray-800">{message}</h1>
+        <h1 className="mt-6 text-2xl font-semibold text-gray-800">{message || "Loading..."}</h1>
       </div>
     );
   };

@@ -8,7 +8,7 @@ function PrivateRoute({children}) {
   const location = useLocation()
 
   if(loading){
-    return <Loading></Loading>
+    return <Loading message='loading...'></Loading>
   }
 
   if(user) {
