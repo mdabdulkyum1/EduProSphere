@@ -1,29 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
+
+
+
+
+
 const TeacherRequest = () => {
-    const teacherRequests = [
-      {
-        id: 1,
-        name: "John Doe",
-        image: "https://via.placeholder.com/50",
-        experience: "5 years",
-        title: "Web Development Instructor",
-        category: "Web Development",
-        status: "pending",
-      },
-      {
-        id: 2,
-        name: "Jane Smith",
-        image: "https://via.placeholder.com/50",
-        experience: "3 years",
-        title: "Graphic Design Mentor",
-        category: "Graphic Design",
-        status: "rejected",
-      },
-    ];
+  const axiosSecure = useAxiosSecure();
+
+  const { data: teacherRequests = [] } = useQuery({
+    queryKey: ["teacher-req"],
+    queryFn: async ()=> {
+        const {data} = await axiosSecure.get('/teacher-request');
+        console.log(data);
+        return data;
+    }
+  })
+
+
   
     return (
       <div className="p-6 bg-light-background dark:bg-dark-background min-h-screen">
         <h2 className="text-3xl font-bold text-light-text dark:text-dark-text mb-6">
-          Teacher Requests
+          Teacher Requests : {teacherRequests.length}
         </h2>
         <table className="w-full border-collapse border border-light-border dark:border-dark-border">
           <thead>
@@ -39,13 +38,13 @@ const TeacherRequest = () => {
           </thead>
           <tbody>
             {teacherRequests.map((request) => (
-              <tr key={request.id} className="text-center">
+              <tr key={request._id} className="text-center">
                 <td className="p-3 border border-light-border dark:border-dark-border">
                   {request.name}
                 </td>
                 <td className="p-3 border border-light-border dark:border-dark-border">
                   <img
-                    src={request.image}
+                    src={request.photo}
                     alt={request.name}
                     className="w-12 h-12 rounded-full mx-auto"
                   />
