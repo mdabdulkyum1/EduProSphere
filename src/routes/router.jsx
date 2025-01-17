@@ -49,6 +49,8 @@ const router = createBrowserRouter([
                 path: "all-classes",
                 element: <PrivateRoute><AdminRoute><AllClass></AllClass></AdminRoute></PrivateRoute>
             },
+            // teacher 
+            
             {
                 path: "profile",
                 element: <MyProfile></MyProfile>
