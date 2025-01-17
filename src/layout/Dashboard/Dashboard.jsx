@@ -51,7 +51,7 @@ const Dashboard = () => {
         </div>
         <ul className="space-y-4">
           <li>
-            <NavLink to="/" className="flex items-center space-x-2 hover:text-accent">
+            <NavLink to="/dashboard" className="flex items-center space-x-2 hover:text-accent">
               <FaHome /> <span>Home</span>
             </NavLink>
           </li>
