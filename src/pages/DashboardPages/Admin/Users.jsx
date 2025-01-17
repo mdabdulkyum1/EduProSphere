@@ -1,29 +1,87 @@
+import { useQuery } from '@tanstack/react-query';
+import useAuth from './../../../hooks/GetAuthInfo/useAuth';
+import useAxiosSecure from '../../../hooks/AxiosSecure/useAxiosSecure';
+import Swal from 'sweetalert2';
+
+
+
 const Users = () => {
-    const users = [
-      {
-        id: 1,
-        name: "John Doe",
-        email: "johndoe@example.com",
-        role: "user",
-        image: "https://via.placeholder.com/40",
-      },
-      {
-        id: 2,
-        name: "Jane Smith",
-        email: "janesmith@example.com",
-        role: "admin",
-        image: "https://via.placeholder.com/40",
-      },
-      {
-        id: 3,
-        name: "Alice Johnson",
-        email: "alicej@example.com",
-        role: "user",
-        image: "https://via.placeholder.com/40",
-      },
-    ];
   
-    return (
+    const {user} = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+    const {data: users = [], isLoading, refetch } = useQuery({
+        queryKey: ["users", user?.email],
+        queryFn: async ()=> {
+          const {data} = await axiosSecure.get(`/users/${user?.email}`)
+            return data;
+        }
+
+    })
+
+    if (isLoading) {
+      return (
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-primary text-white">
+            <tr>
+              <th className="p-3 border border-light-border dark:border-dark-border">Name</th>
+              <th className="p-3 border border-light-border dark:border-dark-border">Image</th>
+              <th className="p-3 border border-light-border dark:border-dark-border">Email</th>
+              <th className="p-3 border border-light-border dark:border-dark-border">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, index) => (
+              <tr key={index}>
+                <td className="p-3 border border-light-border dark:border-dark-border">
+                  <div className="h-4 w-20 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+                </td>
+                <td className="p-3 border border-light-border dark:border-dark-border">
+                  <div className="h-12 w-12 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-full"></div>
+                </td>
+                <td className="p-3 border border-light-border dark:border-dark-border">
+                  <div className="h-4 w-16 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+                </td>
+                <td className="p-3 border border-light-border dark:border-dark-border">
+                  <div className="h-4 w-24 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    }
+    
+  
+    const handelMakeAdmin = async (id, newRole)=>{
+      Swal.fire({
+        title: `Are you sure Make ${newRole}`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: `Yes, make to ${newRole}`,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const newRoleInfo = { role: newRole };
+          const { data } = await axiosSecure.patch(`/user/${id}`, newRoleInfo);
+          if (data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Success",
+              text: `Now ${newRole} this user.`,
+              icon: "success",
+            });
+          }
+        }
+      });
+
+    }
+
+
+
+  return (
       <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Users</h2>
         <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
@@ -37,9 +95,9 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+              <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
                 <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">
-                  <img src={user.image} alt={user.name} className="w-10 h-10 rounded-full" />
+                  <img src={user.photo} alt={user.name} className="w-10 h-10 rounded-full" />
                 </td>
                 <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">{user.name}</td>
                 <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">{user.email}</td>
@@ -52,7 +110,7 @@ const Users = () => {
                       Admin
                     </button>
                   ) : (
-                    <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                    <button onClick={()=>handelMakeAdmin(user._id, "admin")} className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
                       Make Admin
                     </button>
                   )}
