@@ -1,21 +1,45 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/GetAuthInfo/useAuth";
+import { useMutation } from '@tanstack/react-query';
+import useAxiosSecure from './../../hooks/AxiosSecure/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 
 const TeachOn = () => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+
+    const mutation = useMutation({
+      mutationFn: (teacherData)=> {
+          return axiosSecure.post('/teacher', teacherData);
+      }
+    })
     
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const teachData = { ...data, status: "pending" };
 
-    console.log(teachData);
+    try{
+        const {data} = await mutation.mutateAsync(teachData);
+        if (data?.insertedId) {
+          reset();
+          Swal.fire({
+            title: "Success",
+            text: "Please Wait for admin approval!",
+            icon: "success",
+          });
+        }
+    }catch(err){
+      console.error(err);
+      
+    }
   };
 
   
