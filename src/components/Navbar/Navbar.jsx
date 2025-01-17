@@ -5,11 +5,13 @@ import ThemeToggle from "./../../hooks/ThemeToggle/ThemeToggle";
 import logo from "../../assets/logo.png";
 import darkLogo from "../../assets/darkLogo.png";
 import { Tooltip } from "react-tooltip";
+import useRole from './../../hooks/GetRole/useRole';
 
 const Navbar = () => {
   const isVisible = useScrollDirection();
 
   const { user, loading, logOut } = useAuth();
+  const {role} = useRole();
 
   const navigate = useNavigate();
   const handelLogOut = () => {
@@ -48,7 +50,8 @@ const Navbar = () => {
           All Classes
         </NavLink>
       </li>
-      <li>
+      {
+        role === "student" && <li>
         <NavLink
           to="/tech-on"
           className={({ isActive }) =>
@@ -62,6 +65,7 @@ const Navbar = () => {
           Teach on EduProSphere
         </NavLink>
       </li>
+      }
     </>
   );
 
