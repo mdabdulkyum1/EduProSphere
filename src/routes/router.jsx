@@ -8,6 +8,7 @@ import SignUp from "../pages/Authentications/SignUp";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import TeacherRequest from "../pages/DashboardPages/Admin/TeacherRequest";
+import Users from "../pages/DashboardPages/Admin/Users";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "teacher-request",
                 element: <TeacherRequest></TeacherRequest>
+            },
+            {
+                path: "users",
+                element: <Users></Users>
             }
         ]
     },
