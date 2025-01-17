@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import TeacherRequest from "../pages/DashboardPages/Admin/TeacherRequest";
 import Users from "../pages/DashboardPages/Admin/Users";
 import AllClass from './../pages/DashboardPages/Admin/AllClasses';
+import MyProfile from "../pages/DashboardPages/Admin/MyProfile";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: "all-classes",
                 element: <AllClass></AllClass>
+            },
+            {
+                path: "profile",
+                element: <MyProfile></MyProfile>
             }
         ]
     },
