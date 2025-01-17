@@ -12,6 +12,9 @@ import Users from "../pages/DashboardPages/Admin/Users";
 import AllClass from './../pages/DashboardPages/Admin/AllClasses';
 import MyProfile from "../pages/DashboardPages/Admin/MyProfile";
 import AdminRoute from "./AdminRoute";
+import TeacherRoute from "./TeacherRoute";
+import AddClass from "../pages/DashboardPages/Teacher/AddClass";
+import MyClass from './../pages/DashboardPages/Teacher/MyClasses';
 
 const router = createBrowserRouter([
     {
@@ -28,7 +31,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "tech-on",
-                element: <TechOn></TechOn>
+                element: <PrivateRoute><TechOn></TechOn></PrivateRoute>
             }
         ]
     },
@@ -50,7 +53,14 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><AllClass></AllClass></AdminRoute></PrivateRoute>
             },
             // teacher 
-            
+            {
+                path: "add-class",
+                element: <PrivateRoute><TeacherRoute><AddClass></AddClass></TeacherRoute></PrivateRoute>
+            },
+            {
+                path: "my-classes",
+                element: <PrivateRoute><TeacherRoute><MyClass></MyClass></TeacherRoute></PrivateRoute>
+            },
             {
                 path: "profile",
                 element: <MyProfile></MyProfile>
