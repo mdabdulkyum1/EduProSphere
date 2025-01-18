@@ -5,19 +5,17 @@ import Swal from "sweetalert2";
 import { imageUpload } from "../../../Api/utils";
 
 const MyClass = () => {
-
-  const {user} = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const {data: classes = [], refetch}  = useQuery({
+  const { data: classes = [], refetch } = useQuery({
     queryKey: ["my-classes", user?.email],
     enabled: !!user?.email,
-    queryFn: async ()=> {
-       const {data} =  await axiosSecure.get(`/classes?email=${user?.email}`);
-       return data;
-    }
-  }) 
-
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/classes?email=${user?.email}`);
+      return data;
+    },
+  });
 
   const handleUpdate = async (id, title, price) => {
     const { value: formValues } = await Swal.fire({
@@ -91,7 +89,7 @@ const MyClass = () => {
         const description = document.getElementById("description").value.trim();
         const imageInput = document.getElementById("image");
         const imageFile = imageInput.files[0];
-        
+
         Swal.fire({
           title: "Uploading...",
           text: "Please wait while your image is being uploaded.",
@@ -101,29 +99,26 @@ const MyClass = () => {
           },
         });
 
-  
         // Validation
         if (!title || !price || !description || !imageFile) {
           Swal.showValidationMessage("Please fill out all fields!");
           return false;
         }
         const photoUrl = await imageUpload(imageFile);
-        
-        if(photoUrl){
+
+        if (photoUrl) {
           Swal.close();
         }
-       
-  
+
         return { id, title, price: parseFloat(price), description, photoUrl };
       },
     });
-  
+
     if (formValues) {
       // Assuming form submission logic here
       try {
-        
-        const {data} = await axiosSecure.patch('/class-update', formValues);
-        
+        const { data } = await axiosSecure.patch("/class-update", formValues);
+
         if (data.modifiedCount > 0) {
           Swal.fire({
             icon: "success",
@@ -139,74 +134,111 @@ const MyClass = () => {
           text: "An error occurred while updating the class.",
         });
         console.error(error);
-        
       }
     }
   };
-  
-  
 
+  const handelDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { data } = await axiosSecure.delete(`/class-delete/${id}`);
+          console.log(data.deletedCount > 0);
+          if (data) {
+            Swal.fire({
+              title: "Delete!",
+              icon: "success",
+            });
+            refetch();
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    });
+  };
 
   return (
     <div className="p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
-  <h2 className="text-2xl font-bold mb-6 text-light-text dark:text-dark-text">My Classes</h2>
+      <h2 className="text-2xl font-bold mb-6 text-light-text dark:text-dark-text">
+        My Classes
+      </h2>
 
-  {/* Displaying classes */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {classes.map((cls) => (
-      <div key={cls._id} className="border border-light-border dark:border-dark-border rounded-lg p-4 bg-white dark:bg-dark-background">
-        {/* Image */}
-        <img
-          src={cls.photoUrl}
-          alt={cls.title}
-          className="w-full h-32 object-cover rounded-t-md mb-4"
-        />
-
-        {/* Title */}
-        <h3 className="text-lg font-bold mb-2 text-light-text dark:text-dark-text">{cls.title}</h3>
-
-        {/* Name & Email */}
-        <p className="text-sm text-secondary mb-1">Name: {cls.name}</p>
-        <p className="text-sm text-secondary mb-3">Email: {cls.email}</p>
-
-        {/* Price & Description */}
-        <p className="text-sm text-accent mb-2">Price: ${cls.price}</p>
-        <p className="text-sm text-light-text dark:text-dark-text mb-4">{cls.description}</p>
-
-        {/* Status */}
-        <p
-          className={`text-sm font-semibold mb-4 ${
-            cls.status === "pending" ? "text-yellow-500" : "text-green-500"
-          }`}
-        >
-          Status: {cls.status}
-        </p>
-
-        {/* Actions */}
-        <div className="flex flex-wrap space-x-2">
-          <button
-          onClick={()=>handleUpdate(cls._id, cls.title, cls.price, cls.description)}
-            className="bg-primary text-white py-1 px-3 rounded-md hover:bg-green-600"
+      {/* Displaying classes */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {classes.map((cls) => (
+          <div
+            key={cls._id}
+            className="border border-light-border dark:border-dark-border rounded-lg p-4 bg-white dark:bg-dark-background"
           >
-            Update
-          </button>
-          <button
-            className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
-          >
-            Delete
-          </button>
-          <button
-            className={`${cls.status === "pending" && "cursor-not-allowed"} bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
-            disabled={cls.status === "pending"}
-          >
-            See Details
-          </button>
-        </div>
+            {/* Image */}
+            <img
+              src={cls.photoUrl}
+              alt={cls.title}
+              className="w-full h-32 object-cover rounded-t-md mb-4"
+            />
+
+            {/* Title */}
+            <h3 className="text-lg font-bold mb-2 text-light-text dark:text-dark-text">
+              {cls.title}
+            </h3>
+
+            {/* Name & Email */}
+            <p className="text-sm text-secondary mb-1">Name: {cls.name}</p>
+            <p className="text-sm text-secondary mb-3">Email: {cls.email}</p>
+
+            {/* Price & Description */}
+            <p className="text-sm text-accent mb-2">Price: ${cls.price}</p>
+            <p className="text-sm text-light-text dark:text-dark-text mb-4">
+              {cls.description}
+            </p>
+
+            {/* Status */}
+            <p
+              className={`text-sm font-semibold mb-4 ${
+                cls.status === "pending" ? "text-yellow-500" : "text-green-500"
+              }`}
+            >
+              Status: {cls.status}
+            </p>
+
+            {/* Actions */}
+            <div className="flex flex-wrap space-x-2">
+              <button
+                onClick={() =>
+                  handleUpdate(cls._id, cls.title, cls.price, cls.description)
+                }
+                className="bg-primary text-white py-1 px-3 rounded-md hover:bg-green-600"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => handelDelete(cls._id)}
+                className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
+              >
+                Delete
+              </button>
+              <button
+                className={`${
+                  cls.status === "pending" && "cursor-not-allowed"
+                } bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
+                disabled={cls.status === "pending"}
+              >
+                See Details
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</div>
-
+    </div>
   );
 };
 

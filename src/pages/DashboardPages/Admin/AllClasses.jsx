@@ -135,6 +135,7 @@ const AllClasses = () => {
   };
 
   return (
+    <>
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">All Classes</h2>
       <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
@@ -211,6 +212,10 @@ const AllClasses = () => {
         </tbody>
       </table>
     </div>
+  
+
+    </>
+
   );
 };
 

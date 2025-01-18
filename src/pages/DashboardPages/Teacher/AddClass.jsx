@@ -65,6 +65,7 @@ const AddClass = () => {
   };
 
   return (
+    <>
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-2xl font-bold mb-6">Add New Class</h2>
       
@@ -153,6 +154,8 @@ const AddClass = () => {
         </div>
       </form>
     </div>
+  
+    </>
   );
 };
 

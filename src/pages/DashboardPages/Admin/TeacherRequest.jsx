@@ -113,7 +113,7 @@ const TeacherRequest = () => {
       showCancelButton: true,
       confirmButtonColor: "#2e7",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Approve!"
+      confirmButtonText: "Yes, Reject!"
     }).then( async (result) => {
       if (result.isConfirmed) {
         
