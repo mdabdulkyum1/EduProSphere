@@ -55,7 +55,7 @@ const MyClass = () => {
                     Delete
                   </button>
                   <button
-                    className="bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600"
+                    className={`${cls.status === "pending" && "cursor-not-allowed"} bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600`}
                     disabled={cls.status === "pending"}
                   >
                     See Details

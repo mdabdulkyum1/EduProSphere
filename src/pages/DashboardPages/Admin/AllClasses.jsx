@@ -1,41 +1,133 @@
 
+import { useQuery } from '@tanstack/react-query';
+import useAuth from './../../../hooks/GetAuthInfo/useAuth';
+import useAxiosSecure from './../../../hooks/AxiosSecure/useAxiosSecure';
+import  Swal  from 'sweetalert2';
+
+
+
 const AllClasses = () => {
-  const classes = [
-    {
-      id: 1,
-      title: "Math 101",
-      image: "https://via.placeholder.com/40",
-      email: "teacher1@example.com",
-      description: "An introductory class to basic mathematics.",
-      status: "pending",
-    },
-    {
-      id: 2,
-      title: "History 202",
-      image: "https://via.placeholder.com/40",
-      email: "teacher2@example.com",
-      description: "A deep dive into world history.",
-      status: "pending",
-    },
-    {
-      id: 3,
-      title: "Chemistry 301",
-      image: "https://via.placeholder.com/40",
-      email: "teacher3@example.com",
-      description: "Advanced chemistry concepts for college students.",
-      status: "accepted",
-    },
-  ];
+  
+  const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const handleApprove = (id) => {
-    // Handle the approve logic
-    alert(`Class with ID ${id} approved`);
-  };
+  const {data: classes = [], isLoading, refetch } = useQuery({
+     queryKey: ["all-classes", user?.email],
+     enabled: !!user?.email, 
+     queryFn: async ()=> {
+          const {data} = await axiosSecure.get('/class-request');
+          return data;
+     }
+  });
 
-  const handleReject = (id) => {
-    // Handle the reject logic
-    alert(`Class with ID ${id} rejected`);
-  };
+  if (isLoading) {
+    return (
+      <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-primary text-white">
+          <tr>
+            <th className="p-3 border border-light-border dark:border-dark-border">Image</th>
+            <th className="p-3 border border-light-border dark:border-dark-border">Name</th>
+            <th className="p-3 border border-light-border dark:border-dark-border">Title</th>
+            <th className="p-3 border border-light-border dark:border-dark-border">Category</th>
+            <th className="p-3 border border-light-border dark:border-dark-border">Status</th>
+            <th className="p-3 border border-light-border dark:border-dark-border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(5)].map((_, index) => (
+            <tr key={index}>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-20 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-16 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-24 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-16 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-16 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+              <td className="p-3 border border-light-border dark:border-dark-border">
+                <div className="h-4 w-12 bg-gray-300 dark:bg-gray-700 animate-pulse rounded"></div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
+  const handelApprove = (id, status ) => {
+    const newStatus = {
+      id,
+      status
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2e7",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Approve!"
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        
+      try{
+        const {data} = await axiosSecure.patch(`/class-approve`, newStatus);
+        if(data?.modifiedCount > 0 ){
+           Swal.fire({
+          title: "accepted!",
+          icon: "success"
+        });
+            refetch();
+        }
+    }catch(err){
+      console.error(err);
+    }
+      }
+    });
+
+  } 
+
+  const handelReject = (id, status ) => {
+    const newStatus = {
+      id,
+      status,
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Reject!"
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        
+      try{
+        const {data} = await axiosSecure.patch(`/class-reject`, newStatus);
+        if(data?.modifiedCount > 0 ){
+           Swal.fire({
+           title: "rejected!",
+           icon: "info"
+        });
+            refetch();
+        }
+    }catch(err){
+      console.error(err);
+    }
+      }
+    });
+
+  } 
 
   const handleProgress = (id) => {
     // Handle the progress logic
@@ -58,10 +150,10 @@ const AllClasses = () => {
         </thead>
         <tbody>
           {classes.map((classItem) => (
-            <tr key={classItem.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+            <tr key={classItem._id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
               <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">
                 <img
-                  src={classItem.image}
+                  src={classItem.photoUrl}
                   alt={classItem.title}
                   className="w-10 h-10 rounded-full"
                 />
@@ -86,13 +178,13 @@ const AllClasses = () => {
                 {classItem.status === "pending" ? (
                   <>
                     <button
-                      onClick={() => handleApprove(classItem.id)}
+                      onClick={() => handelApprove(classItem._id,  "accepted")}
                       className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 mr-2"
                     >
                       Approve
                     </button>
                     <button
-                      onClick={() => handleReject(classItem.id)}
+                      onClick={() => handelReject(classItem._id,  "rejected")}
                       className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                     >
                       Reject
@@ -100,7 +192,7 @@ const AllClasses = () => {
                   </>
                 ) : classItem.status === "accepted" ? (
                   <button
-                    onClick={() => handleProgress(classItem.id)}
+                    onClick={() => handleProgress(classItem._id)}
                     className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
                   >
                     Progress
