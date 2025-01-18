@@ -17,7 +17,6 @@ const MyProfile = () => {
   })
 
 
-console.log(myProfileData);
   return (
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-6">My Profile</h2>
