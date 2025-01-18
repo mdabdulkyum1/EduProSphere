@@ -1,17 +1,67 @@
 
 import { useForm } from "react-hook-form";
 import useAuth from './../../../hooks/GetAuthInfo/useAuth';
+import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { imageUpload } from "../../../Api/utils";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddClass = () => {
 
   const {user} = useAuth();
-  console.log(user);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
-  // Submit handler
-  const onSubmit = (data) => {
-    console.log("Class Added: ", data);
-    // Here you can handle the form submission (e.g., send to a server or API)
+  const {data: myProfileData = {}, } = useQuery({
+    queryKey: ["user-profile", user?.email], 
+    enabled: !!user?.email,
+    queryFn: async ()=> {
+      const {data} = await axiosSecure.get(`/user-profile/${user?.email}`);
+      return data;
+    }
+  })
+
+  const mutation = useMutation({
+    mutationFn: (classData)=> {
+        return axiosSecure.post('/classes', classData)
+    }
+  })
+
+
+
+  const { register, handleSubmit, formState: { errors } , reset} = useForm();
+
+  const onSubmit = async (data) => {
+    const {title, price, image, description} = data;
+    const imageFile = image[0];
+    const photoUrl = await imageUpload(imageFile);
+    
+    const classData = { 
+      title,
+      price: parseFloat(price),
+      description,
+      photoUrl, 
+      email: user?.email,
+      name: myProfileData.name,
+      status: "pending"
+    };
+    
+    try{
+          const {data} = await mutation.mutateAsync(classData);
+          if (data?.insertedId) {
+                  reset();
+                  Swal.fire({
+                    title: "Success",
+                    text: "Please Wait for admin approval!",
+                    icon: "success",
+                  });
+                  navigate('/dashboard/my-classes');
+                }
+    }catch(err){
+      console.error(err);
+    }
+      
   };
 
   return (
@@ -38,7 +88,7 @@ const AddClass = () => {
           <input
             id="name"
             type="text"
-            value="Teacher's Name" // Static, not editable
+            defaultValue={myProfileData.name}
             readOnly
             className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-100"
           />
@@ -50,7 +100,7 @@ const AddClass = () => {
           <input
             id="email"
             type="email"
-            value="teacher@example.com" // Static, not editable
+            defaultValue={user?.email}
             readOnly
             className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-100"
           />

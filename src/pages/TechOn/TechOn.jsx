@@ -42,6 +42,7 @@ const TeachOn = () => {
           text: "Please Wait for admin approval!",
           icon: "success",
         });
+        refetch();
       }
     } catch (err) {
       console.error(err);
@@ -212,8 +213,9 @@ const TeachOn = () => {
                ""
               ) : (
                 <button
+                disabled={myReq.status === "pending"}
                   type="submit"
-                  className="w-full py-3 bg-primary text-white font-bold rounded-md hover:bg-secondary transition duration-200"
+                  className={`${myReq.status === "pending" && "cursor-not-allowed"} w-full py-3 bg-primary text-white font-bold rounded-md hover:bg-secondary transition duration-200`}
                 >
                   Submit for Review
                 </button>

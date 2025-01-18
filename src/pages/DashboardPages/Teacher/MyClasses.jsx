@@ -1,27 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
+import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 
 const MyClass = () => {
-  const classes = [
-    {
-      id: 1,
-      title: "React Basics",
-      name: "John Doe",
-      email: "johndoe@example.com",
-      price: "$50",
-      description: "Learn React from scratch.",
-      image: "https://via.placeholder.com/150",
-      status: "pending",
-    },
-    {
-      id: 2,
-      title: "Advanced JavaScript",
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      price: "$60",
-      description: "Deep dive into JavaScript.",
-      image: "https://via.placeholder.com/150",
-      status: "pending",
-    },
-  ];
+
+  const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const {data: classes = [],}  = useQuery({
+    queryKey: ["my-classes", user?.email],
+    enabled: !!user?.email,
+    queryFn: async ()=> {
+       const {data} =  await axiosSecure.get(`/classes?email=${user?.email}`);
+       return data;
+    }
+  }) 
 
   return (
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
@@ -43,11 +36,11 @@ const MyClass = () => {
           </thead>
           <tbody>
             {classes.map((cls) => (
-              <tr key={cls.id} className="border-b">
+              <tr key={cls._id} className="border-b">
                 <td className="px-4 py-2">{cls.title}</td>
                 <td className="px-4 py-2">{cls.name}</td>
                 <td className="px-4 py-2">{cls.email}</td>
-                <td className="px-4 py-2">{cls.price}</td>
+                <td className="px-4 py-2">${cls.price}</td>
                 <td className="px-4 py-2">{cls.description}</td>
                 <td className="px-4 py-2">{cls.status}</td>
                 <td className="px-4 py-2 flex space-x-2">

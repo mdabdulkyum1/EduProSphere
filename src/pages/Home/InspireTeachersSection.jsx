@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const InspireTeachersSection = () => {
@@ -17,9 +18,11 @@ const InspireTeachersSection = () => {
             <li>Access intuitive tools to design engaging courses.</li>
             <li>Earn competitive compensation for your efforts.</li>
           </ul>
+          <Link to="/tech-on">
           <button className="mt-6 px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-secondary transition duration-300">
             Join as a Teacher
           </button>
+          </Link>
         </div>
 
         {/* Right Side: Image */}
