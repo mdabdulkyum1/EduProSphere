@@ -16,6 +16,7 @@ import TeacherRoute from "./TeacherRoute";
 import AddClass from "../pages/DashboardPages/Teacher/AddClass";
 import MyClass from './../pages/DashboardPages/Teacher/MyClasses';
 import MyRequest from "../pages/DashboardPages/Student/MyRequest";
+import ClassDetailsPage from "../pages/ClassDetailsPage/ClassDetailsPage";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "tech-on",
                 element: <PrivateRoute><TechOn></TechOn></PrivateRoute>
+            },
+            {
+                path: "class-details/:id",
+                element: <PrivateRoute><ClassDetailsPage></ClassDetailsPage></PrivateRoute>
             }
         ]
     },
