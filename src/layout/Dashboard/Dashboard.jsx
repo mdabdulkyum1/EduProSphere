@@ -86,6 +86,14 @@ const Dashboard = () => {
           )}
           {role === "teacher" && (
             <>
+                <li>
+                <NavLink
+                  to="/dashboard/add-class"
+                  className="flex items-center space-x-2 hover:text-accent"
+                >
+                  <FaPlusCircle /> <span>Add Class</span>
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to="/dashboard/my-classes"
@@ -94,14 +102,7 @@ const Dashboard = () => {
                   <FaChalkboardTeacher /> <span>My Classes</span>
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/dashboard/add-class"
-                  className="flex items-center space-x-2 hover:text-accent"
-                >
-                  <FaPlusCircle /> <span>Add Class</span>
-                </NavLink>
-              </li>
+              
               <li>
                 <NavLink
                   to="/dashboard/profile"
