@@ -1,8 +1,11 @@
 
 import { useForm } from "react-hook-form";
+import useAuth from './../../../hooks/GetAuthInfo/useAuth';
 
 const AddClass = () => {
-  // Initialize useForm hook
+
+  const {user} = useAuth();
+  console.log(user);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   // Submit handler
