@@ -43,7 +43,7 @@ const AllClasses = () => {
                 {classItem.price}
               </p>
               <p className="text-sm text-gray-700 mb-4">
-                {classItem.description}
+                {classItem.description.length > 50 ? `${classItem.description.slice(0, 50)}...` : classItem.description}
               </p>
               <p className="text-sm text-gray-500 mb-4">
                 Total Enrollments: {classItem.totalEnrolment || 0}
