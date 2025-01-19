@@ -107,12 +107,11 @@ const MyClassDetails = () => {
           return false;
         }
 
-        return { title, deadline, description, classId: id};
+        return { title, deadline, description, classId: id, totalMarks: 60}
       },
     });
 
     if (formValues) {
-        console.log(formValues);
       try {
         const { data } = await mutation.mutateAsync(formValues);
 

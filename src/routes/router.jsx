@@ -20,6 +20,7 @@ import ClassDetailsPage from "../pages/ClassDetailsPage/ClassDetailsPage";
 import Payment from "../pages/Payments/Payment";
 import MyEnrollments from "../pages/DashboardPages/Student/MyEnrollMents";
 import MyClassDetails from "../pages/DashboardPages/Teacher/MyClassDetails";
+import MyEnrollClassDetails from "../pages/DashboardPages/Student/MyEnrollClassDetails";
 
 const router = createBrowserRouter([
     {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             {
                 path: "my-enroll-class",
                 element: <PrivateRoute><MyEnrollments></MyEnrollments></PrivateRoute>
+            },
+            {
+                path: "my-enroll-class/:id",
+                element: <PrivateRoute><MyEnrollClassDetails></MyEnrollClassDetails></PrivateRoute>
             },
             //common routes
             {
