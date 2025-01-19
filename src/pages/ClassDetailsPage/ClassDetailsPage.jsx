@@ -24,8 +24,8 @@ const ClassDetailsPage = () => {
     return <Loading message='details...'></Loading>
   }
 
-  const handlePayment = () => {
-    navigate('/payment'); 
+  const handlePayment = (id) => {
+    navigate('/payment', { state: {classId: id } }); 
   };
 
   return (
@@ -57,7 +57,7 @@ const ClassDetailsPage = () => {
               Price: ${classDetails.price || 'N/A'}
             </div>
             <button
-              onClick={handlePayment}
+              onClick={()=>handlePayment(classDetails._id)}
               className="w-full py-3 text-white bg-secondary rounded-lg hover:bg-secondary/90 focus:outline-none focus:ring focus:ring-secondary/50 transition"
             >
               Pay Now
