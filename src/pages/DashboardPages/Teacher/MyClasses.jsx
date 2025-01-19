@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../../Api/utils";
+import { Link } from "react-router-dom";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -226,14 +227,16 @@ const MyClass = () => {
               >
                 Delete
               </button>
-              <button
-                className={`${
-                  cls.status === "pending" && "cursor-not-allowed"
-                } bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
-                disabled={cls.status === "pending"}
-              >
-                See Details
-              </button>
+              <Link to={`/dashboard/my-class/${cls._id}`}>
+                <button
+                  className={`${
+                    cls.status === "pending" && "cursor-not-allowed"
+                  } bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
+                  disabled={cls.status === "pending"}
+                >
+                  See Details
+                </button>
+              </Link>
             </div>
           </div>
         ))}
