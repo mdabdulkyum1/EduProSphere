@@ -39,7 +39,7 @@ const MyEnrollments = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               <strong>Posted by:</strong> {classItem.instructorName}
             </p>
-            <Link to={`/dashboard/my-enroll-class/${classItem._id}`}>
+            <Link to={`/dashboard/my-enroll-class/${classItem._id}`} state={classItem.title}>
               <button className="btn bg-primary text-white w-full py-2 rounded hover:bg-secondary transition">
                 Continue
               </button>

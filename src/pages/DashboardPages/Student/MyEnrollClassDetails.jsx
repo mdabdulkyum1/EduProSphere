@@ -1,17 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const MyEnrollClassDetails = () => {
   const [showModal, setShowModal] = useState(false);
-  const [rating, setRating] = useState(0);
+  
 
   const {user} = useAuth();
   const axiosSecure = useAxiosSecure();
   const {id} = useParams();
+  const location = useLocation();
+  const classTitle = (location?.state);
 
   const {data: assignments = []} = useQuery({
     queryKey: ["assignment-s", user?.email],
@@ -21,15 +25,49 @@ const MyEnrollClassDetails = () => {
     }
   });
 
+const mutation = useMutation({
+    mutationFn: (data)=> {
+        return axiosSecure.post('/feedback', data);
+    }
+});
 
-  const handleSubmit = (assignmentId) => {
-    alert(`Assignment ${assignmentId} submitted!`);
-    // Increment submission count logic goes here.
+
+
+  const { register, handleSubmit, setValue, watch, reset } = useForm(); 
+  const rating = watch("rating", 0);
+
+  const onSubmit = async(data) => {
+    const {rating, description} =  data;
+    // const Feedback text
+    // Name (who post the feedback)
+    // Image (who post the feedback)
+    // title(class title)
+    
+    const feedback = {
+        name: user?.displayName,
+        image: user?.photoURL,
+        classTitle,
+        description,
+        rating
+    }
+    
+    const { data: feedbackData }  = await mutation.mutateAsync(feedback);
+    if(feedbackData?.insertedId){
+        Swal.fire({
+            title: "Success",
+            text: "Thanks Your feedback!",
+            icon: "success",
+        })
+        reset();
+        setShowModal(false);
+    }
+
   };
 
-  const handleRating = (rate) => {
-    setRating(rate);
+  const handleRatingChange = (rate) => {
+    setValue("rating", rate); 
   };
+
 
   return (
     <div className="p-6 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
@@ -76,12 +114,12 @@ const MyEnrollClassDetails = () => {
         </tbody>
       </table>
 
-      {/* Modal */}
-      {showModal && (
+  {/* Modal */}
+  {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white dark:bg-dark-background p-6 rounded shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Teaching Evaluation Report</h2>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               {/* Description */}
               <div className="flex flex-col mb-4">
                 <label htmlFor="description" className="text-sm font-medium mb-1">
@@ -92,7 +130,7 @@ const MyEnrollClassDetails = () => {
                   rows="3"
                   className="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Enter feedback"
-                  required
+                  {...register("description", { required: true })}
                 ></textarea>
               </div>
 
@@ -102,12 +140,12 @@ const MyEnrollClassDetails = () => {
                   Ratings
                 </label>
                 <ReactStars
-                  onClick={handleRating}
-                  ratingValue={rating}
+                  count={5}
+                  onChange={handleRatingChange}
                   size={20}
-                  fillColor="#FFCA28"
+                  value={rating}
+                  activeColor="#FFCA28"
                   emptyColor="#E0E0E0"
-                  className="text-primary"
                 />
               </div>
 
@@ -128,6 +166,7 @@ const MyEnrollClassDetails = () => {
           </div>
         </div>
       )}
+ 
     </div>
   );
 };
