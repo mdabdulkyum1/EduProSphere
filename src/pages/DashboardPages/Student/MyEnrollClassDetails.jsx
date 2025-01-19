@@ -38,10 +38,6 @@ const mutation = useMutation({
 
   const onSubmit = async(data) => {
     const {rating, description} =  data;
-    // const Feedback text
-    // Name (who post the feedback)
-    // Image (who post the feedback)
-    // title(class title)
     
     const feedback = {
         name: user?.displayName,
@@ -67,6 +63,12 @@ const mutation = useMutation({
   const handleRatingChange = (rate) => {
     setValue("rating", rate); 
   };
+
+
+  const handleAssignmentSubmit = (id) => {
+      console.log(id);
+      
+  }
 
 
   return (
@@ -103,7 +105,7 @@ const mutation = useMutation({
                 <div className="flex items-center gap-2">
                   <button
                     className="bg-primary text-white px-4 py-2 rounded hover:bg-secondary"
-                    onClick={() => handleSubmit(assignment.id)}
+                    onClick={() => handleAssignmentSubmit(assignment._id)}
                   >
                     Submit
                   </button>
