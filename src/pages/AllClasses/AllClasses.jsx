@@ -10,7 +10,6 @@ const AllClasses = () => {
 
   const { data: classes = [], isLoading } = useQuery({
     queryKey: ["all-classes", user?.email],
-    enabled: !!user?.email,
     queryFn: async () => {
       const { data } = await axiosPublic.get("/all-classes");
       return data;
@@ -47,7 +46,7 @@ const AllClasses = () => {
                 {classItem.description}
               </p>
               <p className="text-sm text-gray-500 mb-4">
-                Total Enrollments: {classItem.totalEnrollment || 0}
+                Total Enrollments: {classItem.totalEnrolment || 0}
               </p>
               <Link to={`/class-details/${classItem._id}`}>
                 <button className="w-full py-2 bg-primary text-white rounded-lg hover:bg-accent transition duration-300">

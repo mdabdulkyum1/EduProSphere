@@ -37,8 +37,8 @@ const CheckoutForm = () => {
   });
 
   const paymentMutation = useMutation({
-    mutationFn: async (data) => {
-      return axiosSecure.post("/payments", { data });
+    mutationFn: async (payment) => {
+      return axiosSecure.post("/payments", payment);
     },
   });
 
@@ -106,15 +106,19 @@ const CheckoutForm = () => {
         const payment = {
           email: user?.email,
           price: price,
-          date: new Date(), // utc date convert use moment js
+          date: new Date(), 
           transactionId: paymentIntent.id,
           classId: id,
-          status: "pending",
+          title: classDetails.title,
+          instructorName: classDetails.name,
+          classImage: classDetails.photoUrl
         };
 
         try {
           const { data } = await paymentMutation.mutateAsync(payment);
-          if (data.insertedId) {
+
+        
+          if (data.paymentResult.insertedId && data.updateResult.modifiedCount > 0) {
             Swal.fire({
               position: "top-end",
               icon: "success",

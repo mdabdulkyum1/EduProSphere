@@ -18,6 +18,7 @@ import MyClass from './../pages/DashboardPages/Teacher/MyClasses';
 import MyRequest from "../pages/DashboardPages/Student/MyRequest";
 import ClassDetailsPage from "../pages/ClassDetailsPage/ClassDetailsPage";
 import Payment from "../pages/Payments/Payment";
+import MyEnrollments from "../pages/DashboardPages/Student/MyEnrollMents";
 
 const router = createBrowserRouter([
     {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "payment",
-                element: <Payment></Payment>
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
             }
         ]
     },
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
             {
                 path: "my-request", 
                 element: <PrivateRoute><MyRequest></MyRequest></PrivateRoute>
+            },
+            {
+                path: "my-enroll-class",
+                element: <PrivateRoute><MyEnrollments></MyEnrollments></PrivateRoute>
             },
             //common routes
             {
