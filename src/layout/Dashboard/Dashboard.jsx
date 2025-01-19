@@ -21,7 +21,7 @@ import TeacherDashboard from "../TeacherDashboard/TeacherDashboard";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user, logOut } = useAuth();
   const { role, roleLoading } = useRole();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -158,7 +158,7 @@ const Dashboard = () => {
           </li>
         </ul>
         <button
-          onClick={logout}
+          onClick={logOut}
           className="flex items-center space-x-2 text-red-500 hover:text-red-700 mt-8"
         >
           <FaSignOutAlt /> <span>Logout</span>

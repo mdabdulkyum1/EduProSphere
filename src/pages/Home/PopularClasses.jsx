@@ -104,7 +104,7 @@ const PopularClasses = () => {
                     {course.title}
                   </h3>
                   <p className="text-sm text-light-text dark:text-dark-text mb-4">
-                    {course.description}
+                    {course.description.length > 60 ? `${course.description.slice(0,60)}...` : course.description}
                   </p>
                   <p className="text-sm font-medium text-accent">
                     Enrollment: {course.totalEnrolment}
