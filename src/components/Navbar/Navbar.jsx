@@ -135,14 +135,14 @@ const Navbar = () => {
 
             <Link
               to="/"
-              className="text-xl font-bold text-primary dark:text-accent sm:ml-4"
+              className="text-sm md:xl font-bold text-primary dark:text-accent sm:ml-4"
             >
               EduProSphere
             </Link>
           </div>
           <Link
             to="/"
-            className="sm:hidden text-xl font-bold text-primary dark:text-accent sm:ml-4"
+            className="sm:hidden text-sm md:xl font-bold text-primary dark:text-accent sm:ml-4"
           >
             EduProSphere
           </Link>

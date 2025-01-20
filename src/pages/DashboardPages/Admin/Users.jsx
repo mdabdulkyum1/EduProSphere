@@ -93,7 +93,10 @@ const Users = () => {
   return (
       <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Users</h2>
-        <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+
+
+      <div className="overflow-x-auto">
+        <table className="table table-xs md:table-lg border-collapse border border-gray-200 dark:border-gray-700">
           <thead>
             <tr className="bg-gray-100 dark:bg-gray-800">
               <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Image</th>
@@ -128,6 +131,10 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+
+
         <div className="flex justify-around items-center">
           <div className="">
             Showing 1-10 of {count}

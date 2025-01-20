@@ -147,7 +147,10 @@ const TeacherRequest = () => {
         <h2 className="text-3xl font-bold text-light-text dark:text-dark-text mb-6">
           Teacher Requests : {teacherRequests.length}
         </h2>
-        <table className="w-full border-collapse border border-light-border dark:border-dark-border">
+
+
+        <div className="overflow-x-auto">
+        <table className="table table-xs md:table-lg border-collapse border border-light-border dark:border-dark-border">
           <thead>
             <tr className="bg-primary text-white">
               <th className="p-3 border border-light-border dark:border-dark-border">Name</th>
@@ -208,6 +211,10 @@ const TeacherRequest = () => {
             ))}
           </tbody>
         </table>
+        </div>
+
+
+
         <div className="flex justify-around items-center">
           <div className="">
             Showing 1-10 of {count}
