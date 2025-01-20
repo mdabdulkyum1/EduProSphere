@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000'
-    // baseURL: 'https://edu-pro-sphere.vercel.app'
+    // baseURL: 'http://localhost:5000'
+    baseURL: 'https://edu-pro-sphere.vercel.app'
   });
 
   
