@@ -152,7 +152,7 @@ const MyClass = () => {
       if (result.isConfirmed) {
         try {
           const { data } = await axiosSecure.delete(`/class-delete/${id}`);
-          console.log(data.deletedCount > 0);
+          // console.log(data.deletedCount > 0);
           if (data) {
             Swal.fire({
               title: "Delete!",

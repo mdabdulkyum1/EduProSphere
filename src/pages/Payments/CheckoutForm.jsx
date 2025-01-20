@@ -28,7 +28,7 @@ const CheckoutForm = () => {
     },
   });
   const price = Number(classDetails?.price) || 0;
-  console.log(typeof price);
+  // console.log(typeof price);
 
   const mutation = useMutation({
     mutationFn: async (data) => {

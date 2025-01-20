@@ -44,7 +44,7 @@ const Login = () => {
     } catch (error) {
       setErr(error.message);
     }
-    console.log(email, password);
+    // console.log(email, password);
   };
 
   useEffect(() => {
