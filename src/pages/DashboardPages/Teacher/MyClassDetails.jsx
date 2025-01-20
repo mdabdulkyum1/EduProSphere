@@ -147,93 +147,87 @@ const MyClassDetails = () => {
 
   return (
     <>
-    <Helmet>
-      <title>EduProSphere | My Class Details</title>
-    </Helmet>
-    <div className="p-6 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
-      <h1 className="text-2xl font-bold mb-4">Class Details</h1>
+      <Helmet>
+        <title>EduProSphere | My Class Details</title>
+      </Helmet>
+      <div className="md:p-6 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
+        <h1 className="text-2xl font-bold mb-4 px-6">Class Details</h1>
 
-      {/* Class Progress Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="p-4 bg-primary text-white rounded shadow">
-          <h2 className="text-lg font-bold">Total Enrollment</h2>
-          <p className="text-2xl">{totalEnrollment?.total || "N/A"}</p>
+        {/* Class Progress Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 px-6">
+          <div className="p-4 bg-primary text-white rounded shadow">
+            <h2 className="text-lg font-bold">Total Enrollment</h2>
+            <p className="text-2xl">{totalEnrollment?.total || "N/A"}</p>
+          </div>
+          <div className="p-4 bg-secondary text-white rounded shadow">
+            <h2 className="text-lg font-bold">Total Assignments</h2>
+            <p className="text-2xl">{assignments.length}</p>
+          </div>
+          <div className="p-4 bg-accent text-white rounded shadow">
+            <h2 className="text-lg font-bold">Total Submissions</h2>
+            <p className="text-2xl">{totalSubmissions}</p>
+          </div>
         </div>
-        <div className="p-4 bg-secondary text-white rounded shadow">
-          <h2 className="text-lg font-bold">Total Assignments</h2>
-          <p className="text-2xl">{assignments.length}</p>
-        </div>
-        <div className="p-4 bg-accent text-white rounded shadow">
-          <h2 className="text-lg font-bold">Total Submissions</h2>
-          <p className="text-2xl">{totalSubmissions}</p>
+
+        {/* Assignment Management */}
+        <div className="w-full px-6">
+          <h2 className="text-xl font-bold mb-4">Assignments</h2>
+          <button
+            className="bg-secondary text-white py-2 px-4 rounded hover:bg-secondary-dark"
+            onClick={createAssignment}
+          >
+            Create Assignment
+          </button>
+
         </div>
       </div>
-
-      {/* Assignment Management */}
-      <div className="w-full ">
-        <h2 className="text-xl font-bold mb-4">Assignments</h2>
-        <button
-          className="bg-secondary text-white py-2 px-4 rounded hover:bg-secondary-dark"
-          onClick={createAssignment}
-        >
-          Create Assignment
-        </button>
-
-<div className="relative">
-<div className="absolute top-7 left-0 md:static">
-        <div className="overflow-x-auto">
-          <table className="mt-4  table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
-            <thead>
-              <tr>
-                <th className="p-2 border border-light-border dark:border-dark-border">
-                  Title
-                </th>
-                <th className="p-2 border border-light-border dark:border-dark-border">
-                  Description
-                </th>
-                <th className="p-2 border border-light-border dark:border-dark-border">
-                  Deadline
-                </th>
-                <th className="p-2 border border-light-border dark:border-dark-border">
-                  Submissions
-                </th>
-              </tr>
-            </thead>
-            {assignments.length > 0 ? (
-              <tbody>
-                {/* Render assignments dynamically */}
-                {assignments.map((assignment) => (
-                  <tr key={assignment._id}>
-                    <td className="p-2 border border-light-border dark:border-dark-border">
-                      {assignment.title}
-                    </td>
-                    <td className="p-2 border border-light-border dark:border-dark-border">
-                      {assignment?.description}
-                    </td>
-                    <td className="p-2 border border-light-border dark:border-dark-border">
-                      {assignment.deadline}
-                    </td>
-                    <td className="p-2 border border-light-border dark:border-dark-border">
-                      {assignment?.submissions?.length || "N/A"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : (
-              <h1>no assignments found</h1>
-            )}
-          </table>
-        </div>
-
-</div>
-</div>
-
-
-
-
-
-      </div>
-    </div>
+          <div className="relative dark:bg-dark-background">
+            <div className="absolute top-7 left-0 md:static">
+              <div className="overflow-x-auto">
+                <table className="mt-4 dark:bg-dark-background table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
+                  <thead>
+                    <tr>
+                      <th className="p-2 border border-light-border dark:border-dark-border">
+                        Title
+                      </th>
+                      <th className="p-2 border border-light-border dark:border-dark-border">
+                        Description
+                      </th>
+                      <th className="p-2 border border-light-border dark:border-dark-border">
+                        Deadline
+                      </th>
+                      <th className="p-2 border border-light-border dark:border-dark-border">
+                        Submissions
+                      </th>
+                    </tr>
+                  </thead>
+                  {assignments.length > 0 ? (
+                    <tbody>
+                      {/* Render assignments dynamically */}
+                      {assignments.map((assignment) => (
+                        <tr key={assignment._id}>
+                          <td className="p-2 border border-light-border dark:border-dark-border">
+                            {assignment.title}
+                          </td>
+                          <td className="p-2 border border-light-border dark:border-dark-border">
+                            {assignment?.description}
+                          </td>
+                          <td className="p-2 border border-light-border dark:border-dark-border">
+                            {assignment.deadline}
+                          </td>
+                          <td className="p-2 border border-light-border dark:border-dark-border">
+                            {assignment?.submissions?.length || "N/A"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
+                    <h1>no assignments found</h1>
+                  )}
+                </table>
+              </div>
+            </div>
+          </div>
     </>
   );
 };

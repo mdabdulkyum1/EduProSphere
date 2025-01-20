@@ -174,7 +174,7 @@ const MyClass = () => {
       <title>EduProSphere | My Class</title>
     </Helmet>
     <div className="lg:p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-light-text dark:text-dark-text">
+      <h2 className="text-2xl font-bold mb-6 px-6 text-light-text dark:text-dark-text">
         My Classes
       </h2>
 

@@ -77,11 +77,11 @@ const AddClass = () => {
         
         {/* Title Field */}
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Title</label>
           <input
             id="title"
             type="text"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
             {...register("title", { required: "Title is required" })}
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
@@ -89,35 +89,35 @@ const AddClass = () => {
 
         {/* Name (Not Editable) */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Name</label>
           <input
             id="name"
             type="text"
             defaultValue={myProfileData.name}
             readOnly
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-100"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
         {/* Email (Not Editable) */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Email</label>
           <input
             id="email"
             type="email"
             defaultValue={user?.email}
             readOnly
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-100"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
         {/* Price Field */}
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Price</label>
           <input
             id="price"
             type="number"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
             {...register("price", { required: "Price is required" })}
           />
           {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
@@ -125,11 +125,11 @@ const AddClass = () => {
 
         {/* Description Field */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Description</label>
           <textarea
             id="description"
             rows="4"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
             {...register("description", { required: "Description is required" })}
           />
           {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
@@ -137,11 +137,11 @@ const AddClass = () => {
 
         {/* Image Field */}
         <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image</label>
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-100">Image</label>
           <input
             id="image"
             type="file"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
             {...register("image", { required: "Class image is required" })}
           />
           {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}

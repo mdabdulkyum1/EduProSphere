@@ -174,8 +174,8 @@ const Dashboard = () => {
       </button>
 
       {/* Main Content */}
-      <div className="flex-grow p-6 lg:ml-64">
-        <h2 className="text-3xl font-bold mt-6 md:mt-0 mb-6">
+      <div className="flex-grow md:p-6 lg:ml-64">
+        <h2 className="text-3xl font-bold px-6 mt-12 md:mt-0 mb-6">
           Welcome, {user?.displayName} <span className="text-primary">{role || "N/A"}</span>
         </h2>
         <div className="space-y-8">
