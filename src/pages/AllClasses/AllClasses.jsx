@@ -3,15 +3,26 @@ import useAuth from "./../../hooks/GetAuthInfo/useAuth";
 import useAxiosPublic from "../../hooks/AxiosPublic/useAxiosPublic";
 import Loading from "./../../components/shared/Loading/Loading";
 import { Link } from "react-router-dom";
+import usePagination from "../../hooks/pagination/usePagination";
 
 const AllClasses = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
 
+  const {
+    count,
+    pages,
+    currentPage,
+    numberOfPages,
+    setCurrentPage,
+    handelPrevBtn,
+    handelNextBtn,
+  } = usePagination();
+
   const { data: classes = [], isLoading } = useQuery({
-    queryKey: ["all-classes", user?.email],
+    queryKey: ["all-classes", user?.email, currentPage],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/all-classes");
+      const { data } = await axiosPublic.get(`/all-classes?page=${currentPage}&size=${10}`);
       return data;
     },
   });
@@ -43,7 +54,9 @@ const AllClasses = () => {
                 {classItem.price}
               </p>
               <p className="text-sm text-gray-700 mb-4">
-                {classItem.description.length > 50 ? `${classItem.description.slice(0, 50)}...` : classItem.description}
+                {classItem.description.length > 50
+                  ? `${classItem.description.slice(0, 50)}...`
+                  : classItem.description}
               </p>
               <p className="text-sm text-gray-500 mb-4">
                 Total Enrollments: {classItem.totalEnrolment || 0}
@@ -55,6 +68,41 @@ const AllClasses = () => {
               </Link>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-around items-center">
+          <div className="">
+            Showing 1-10 of {count}
+          </div>
+          <div className="my-12">
+            <div className="text-center pagination-div">
+              <button
+                className="btn"
+                onClick={handelPrevBtn}
+                disabled={currentPage === 0}
+              >
+                Prev
+              </button>
+              {pages.map((page) => (
+                <button
+                  className={`btn ${
+                    currentPage === page ? "bg-yellow-500" : ""
+                  }`}
+                  onClick={() => page !== "..." && setCurrentPage(page)}
+                  disabled={page === "..."}
+                  key={page}
+                >
+                  {page === "..." ? "..." : page + 1}
+                </button>
+              ))}
+              <button
+                onClick={handelNextBtn}
+                disabled={currentPage === numberOfPages - 1}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

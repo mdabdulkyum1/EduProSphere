@@ -55,6 +55,7 @@ const usePagination = () => {
       }
    
     return {
+        count,
         currentPage,
         numberOfPages,
         pages: generatePagination(),
