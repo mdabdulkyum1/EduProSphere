@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from './../../../hooks/GetAuthInfo/useAuth';
 import useAxiosSecure from '../../../hooks/AxiosSecure/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useUserPagination from '../../../hooks/pagination/useUserPagination';
 
 
 
@@ -10,10 +11,18 @@ const Users = () => {
     const {user} = useAuth();
     const axiosSecure = useAxiosSecure();
 
+    const { count,
+      currentPage,
+      numberOfPages,
+      pages,
+      setCurrentPage,
+      handelPrevBtn,
+      handelNextBtn} = useUserPagination();
+
     const {data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ["users", user?.email],
+        queryKey: ["users", user?.email, currentPage],
         queryFn: async ()=> {
-          const {data} = await axiosSecure.get(`/users/${user?.email}`)
+          const {data} = await axiosSecure.get(`/users/${user?.email}?page=${currentPage}&size=${10}`)
             return data;
         }
 
@@ -119,6 +128,40 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-between items-center">
+          <div className="">
+            Showing 1-10 of {count}
+          </div>
+          <div className="my-12">
+            <div className="text-center pagination-div">
+              <button
+                className="btn"
+                onClick={handelPrevBtn}
+                disabled={currentPage === 0}
+              >
+                Prev
+              </button>
+              {pages.map((page) => (
+                <button
+                  className={`btn ${
+                    currentPage === page ? "bg-yellow-500" : ""
+                  }`}
+                  onClick={() => page !== "..." && setCurrentPage(page)}
+                  disabled={page === "..."}
+                  key={page}
+                >
+                  {page === "..." ? "..." : page + 1}
+                </button>
+              ))}
+              <button
+                onClick={handelNextBtn}
+                disabled={currentPage === numberOfPages - 1}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
