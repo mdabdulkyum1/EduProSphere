@@ -77,7 +77,7 @@ const AllClasses = () => {
           <div className="my-12">
             <div className="text-center pagination-div">
               <button
-                className="btn"
+                className="btn bg-primary"
                 onClick={handelPrevBtn}
                 disabled={currentPage === 0}
               >
@@ -96,8 +96,9 @@ const AllClasses = () => {
                 </button>
               ))}
               <button
+                className="btn bg-primary"
                 onClick={handelNextBtn}
-                disabled={currentPage === numberOfPages - 1}
+                disabled={currentPage === numberOfPages}
               >
                 Next
               </button>

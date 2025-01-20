@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const useUserPagination = () => {
+const useTeacherPagi = () => {
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 //   const [itemPerPage, setItemPerPage] = useState(6);
@@ -11,7 +11,7 @@ const useUserPagination = () => {
       useEffect(()=>{
         const getCount = async () => {
           try{
-              const {data} = await axios.get(`${import.meta.env.VITE_server_url}/user-count`);
+              const {data} = await axios.get(`${import.meta.env.VITE_server_url}/count-teacher`);
               setCount(data.count);
           }catch(err){
             console.error(err);
@@ -23,7 +23,7 @@ const useUserPagination = () => {
       
       const generatePagination = () => {
            const pages = [];
-           const startPage = Math.max(1, currentPage + 1 - 2);
+           const startPage = Math.max(0, currentPage + 1 - 2);
            const endPage = Math.min(numberOfPages, currentPage + 1 + 2);
 
            if(startPage > 1){
@@ -65,4 +65,4 @@ const useUserPagination = () => {
     }
 };
 
-export default useUserPagination;
+export default useTeacherPagi;

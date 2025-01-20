@@ -128,14 +128,14 @@ const Users = () => {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-around items-center">
           <div className="">
             Showing 1-10 of {count}
           </div>
           <div className="my-12">
             <div className="text-center pagination-div">
               <button
-                className="btn"
+                className="btn bg-primary"
                 onClick={handelPrevBtn}
                 disabled={currentPage === 0}
               >
@@ -154,8 +154,9 @@ const Users = () => {
                 </button>
               ))}
               <button
+                className="btn bg-primary"
                 onClick={handelNextBtn}
-                disabled={currentPage === numberOfPages - 1}
+                disabled={currentPage === numberOfPages}
               >
                 Next
               </button>

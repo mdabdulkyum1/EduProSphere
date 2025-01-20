@@ -1,18 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import Swal from 'sweetalert2';
-
-
-
+import useTeacherPagi from "../../../hooks/pagination/useTeacherPagi";
 
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
 
+  const {
+    count,
+    pages,
+    currentPage,
+    numberOfPages,
+    setCurrentPage,
+    handelPrevBtn,
+    handelNextBtn,} = useTeacherPagi()
+
   const { data: teacherRequests = [], isLoading, refetch} = useQuery({
-    queryKey: ["teacher-req"],
+    queryKey: ["teacher-req", currentPage], 
     queryFn: async ()=> {
-        const {data} = await axiosSecure.get('/teacher-request');
+        const {data} = await axiosSecure.get(`/teacher-request?page=${currentPage}&size=${10}`);
         return data;
     }
   })
@@ -201,6 +208,41 @@ const TeacherRequest = () => {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-around items-center">
+          <div className="">
+            Showing 1-10 of {count}
+          </div>
+          <div className="my-12">
+            <div className="text-center pagination-div">
+              <button
+                className="btn bg-primary"
+                onClick={handelPrevBtn}
+                disabled={currentPage === 0}
+              >
+                Prev
+              </button>
+              {pages.map((page) => (
+                <button
+                  className={`btn ${
+                    currentPage === page ? "bg-yellow-500" : ""
+                  }`}
+                  onClick={() => page !== "..." && setCurrentPage(page)}
+                  disabled={page === "..."}
+                  key={page}
+                >
+                  {page === "..." ? "..." : page + 1}
+                </button>
+              ))}
+              <button
+                className="btn bg-primary"
+                onClick={handelNextBtn}
+                disabled={currentPage === numberOfPages}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };

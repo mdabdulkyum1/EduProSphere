@@ -6,7 +6,7 @@ const usePagination = () => {
   const [currentPage, setCurrentPage] = useState(0);
 //   const [itemPerPage, setItemPerPage] = useState(6);
 
-  const numberOfPages = Math.ceil(count / 6);
+  const numberOfPages = Math.ceil(count / 10);
     
       useEffect(()=>{
         const getCount = async () => {
@@ -23,7 +23,7 @@ const usePagination = () => {
       
       const generatePagination = () => {
            const pages = [];
-           const startPage = Math.max(1, currentPage + 1 - 2);
+           const startPage = Math.max(0, currentPage + 1 - 2);
            const endPage = Math.min(numberOfPages, currentPage + 1 + 2);
 
            if(startPage > 1){
@@ -49,7 +49,7 @@ const usePagination = () => {
             }
       }
       const handelNextBtn = () => {
-            if(currentPage < numberOfPages - 1){
+            if(currentPage < numberOfPages){
                 setCurrentPage(currentPage + 1)
             }
       }
