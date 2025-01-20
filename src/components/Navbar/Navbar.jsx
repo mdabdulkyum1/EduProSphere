@@ -194,7 +194,7 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content space-y-3 bg-light-background border border-transparent dark:border-white rounded-lg z-10 mt-3 p-4 shadow-lg w-64 transition-all duration-300"
+                  className="dropdown-content space-y-3 bg-light-background dark:bg-dark-background border border-transparent dark:border-white rounded-lg z-10 mt-3 p-4 shadow-lg w-64 transition-all duration-300"
                 >
                   {/* User Display Name */}
                   <li className="text-center text-lg font-semibold  mb-2">
