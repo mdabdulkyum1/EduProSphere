@@ -21,6 +21,7 @@ import Payment from "../pages/Payments/Payment";
 import MyEnrollments from "../pages/DashboardPages/Student/MyEnrollMents";
 import MyClassDetails from "../pages/DashboardPages/Teacher/MyClassDetails";
 import MyEnrollClassDetails from "../pages/DashboardPages/Student/MyEnrollClassDetails";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -106,6 +107,11 @@ const router = createBrowserRouter([
     {
         path: "signup",
         element: <SignUp></SignUp>
+    },
+    {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
+
     }
 
 ]);
