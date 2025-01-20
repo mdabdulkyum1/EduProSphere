@@ -127,7 +127,7 @@ const MyEnrollClassDetails = () => {
   };
 
   return (
-    <div className="p-6 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
+    <div className=" bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
       <h1 className="text-2xl font-bold mb-4">My Enrolled Class Details</h1>
 
       {/* Teaching Evaluation Report Button */}
@@ -139,9 +139,13 @@ const MyEnrollClassDetails = () => {
       </button>
 
       {/* Assignments Table */}
-      <table className="w-full border border-light-border dark:border-dark-border">
+      
+<div className="relative">
+<div className="absolute top-12 left-0 md:static">
+      <div className="overflow-x-auto">
+      <table className="table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
         <thead>
-          <tr className="bg-secondary text-white">
+          <tr className="bg-secondary ">
             <th className="p-2 border">Title</th>
             <th className="p-2 border">Description</th>
             <th className="p-2 border">Total Marks</th>
@@ -156,7 +160,7 @@ const MyEnrollClassDetails = () => {
               className="hover:bg-light hover:dark:bg-dark"
             >
               <td className="p-2 border">{assignment.title}</td>
-              <td className="p-2 border">{assignment.description}</td>
+              <td className="p-2 border">{assignment.description.length > 50 ? assignment.description.slice(0,50) : assignment.description }</td>
               <td className="p-2 border">{assignment.totalMarks || "N/A"}</td>
               <td className="p-2 border">{assignment.deadline}</td>
               <td className="p-2 border">
@@ -166,8 +170,8 @@ const MyEnrollClassDetails = () => {
                       assignment?.submissions?.some(
                         (d) => d.email === user?.email
                       )
-                        ? "bg-gray-400 cursor-not-allowed" 
-                        : "bg-primary hover:bg-secondary" 
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-primary hover:bg-secondary"
                     }`}
                     onClick={() => handleAssignmentSubmit(assignment._id)}
                     disabled={assignment?.submissions?.some(
@@ -182,6 +186,9 @@ const MyEnrollClassDetails = () => {
           ))}
         </tbody>
       </table>
+      </div>
+</div>
+</div>
 
       {/* Modal */}
       {showModal && (
