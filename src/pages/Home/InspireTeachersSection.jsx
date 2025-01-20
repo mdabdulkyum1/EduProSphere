@@ -28,7 +28,7 @@ const InspireTeachersSection = () => {
         {/* Right Side: Image */}
         <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
           <img
-            src="assets/teacher-inspire.jpg"
+            src="https://i.ibb.co.com/bBrcsSK/client1.png"
             alt="Inspire Teachers"
             className="rounded-lg shadow-lg max-w-full"
           />

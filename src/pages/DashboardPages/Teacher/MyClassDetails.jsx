@@ -25,6 +25,13 @@ const MyClassDetails = () => {
         } 
       });
 
+      const totalSubmissions = assignments.reduce(
+        (total, assignment) => total + assignment?.submissions.length,
+        0
+      );
+    
+      
+
     const { data: totalEnrollment} = useQuery({
         queryKey: ['total-enrollment', user?.email], 
         queryFn: async()=> {
@@ -107,7 +114,7 @@ const MyClassDetails = () => {
           return false;
         }
 
-        return { title, deadline, description, classId: id, totalMarks: 60}
+        return { title, deadline, description, classId: id, totalMarks: 60, submissions: []}
       },
     });
 
@@ -150,7 +157,7 @@ const MyClassDetails = () => {
       </div>
       <div className="p-4 bg-accent text-white rounded shadow">
         <h2 className="text-lg font-bold">Total Submissions</h2>
-        <p className="text-2xl">0</p>
+        <p className="text-2xl">{totalSubmissions}</p>
       </div>
     </div>
 
@@ -180,9 +187,9 @@ const MyClassDetails = () => {
           {assignments.map((assignment) => (
             <tr key={assignment._id}>
               <td className="p-2 border border-light-border dark:border-dark-border">{assignment.title}</td>
-              <td className="p-2 border border-light-border dark:border-dark-border">{assignment.description}</td>
+              <td className="p-2 border border-light-border dark:border-dark-border">{assignment?.description}</td>
               <td className="p-2 border border-light-border dark:border-dark-border">{assignment.deadline}</td>
-              <td className="p-2 border border-light-border dark:border-dark-border">{assignment.submissions || "N/A"}</td>
+              <td className="p-2 border border-light-border dark:border-dark-border">{assignment?.submissions?.length || "N/A"}</td>
             </tr>
           ))}
         </tbody>

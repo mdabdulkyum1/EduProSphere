@@ -1,6 +1,22 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/AxiosPublic/useAxiosPublic";
 
 
 const StatsSection = () => {
+  const axiosPublic = useAxiosPublic();
+  
+  const {data: stats} = useQuery({
+    queryKey: ['stats'],
+    queryFn: async ()=> {
+       const {data} = await axiosPublic.get('/home-stats');
+       return data;
+    } 
+  });
+
+
+
+
+
   return (
     <section className="py-16 bg-light-background dark:bg-dark-background">
       <div className="container mx-auto px-6 lg:px-20 flex flex-col md:flex-row items-center">
@@ -19,7 +35,7 @@ const StatsSection = () => {
                 <h4 className="text-lg font-semibold text-light-text dark:text-dark-text">
                   Total Users
                 </h4>
-                <p className="text-secondary text-sm">12,500+</p>
+                <p className="text-secondary text-sm">{stats?.totalUsers}+</p>
               </div>
             </div>
             {/* Card: Total Classes */}
@@ -31,7 +47,7 @@ const StatsSection = () => {
                 <h4 className="text-lg font-semibold text-light-text dark:text-dark-text">
                   Total Classes
                 </h4>
-                <p className="text-secondary text-sm">350+</p>
+                <p className="text-secondary text-sm">{stats?.totalClass}+</p>
               </div>
             </div>
             {/* Card: Total Enrollments */}
@@ -43,7 +59,7 @@ const StatsSection = () => {
                 <h4 className="text-lg font-semibold text-light-text dark:text-dark-text">
                   Total Enrollments
                 </h4>
-                <p className="text-secondary text-sm">65,000+</p>
+                <p className="text-secondary text-sm">{stats?.totalEnrollments}+</p>
               </div>
             </div>
           </div>
@@ -52,7 +68,7 @@ const StatsSection = () => {
         {/* Right Side: Relevant Image */}
         <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
           <img
-            src="assets/achievement.jpg"
+            src="https://i.ibb.co.com/C6SdH4K/Achievements.jpg"
             alt="Achievements"
             className="rounded-lg shadow-lg max-w-full"
           />

@@ -1,5 +1,5 @@
 
-
+import communityImg from '../../assets/join.png'
 
 
 const JoinCommunitySection = () => {
@@ -34,7 +34,7 @@ const JoinCommunitySection = () => {
         {/* Right Side: Image */}
         <div className="md:w-1/2 flex justify-center">
           <img
-            src="assets/community.jpg"
+            src={communityImg}
             alt="Community"
             className="rounded-lg shadow-lg max-w-full transition-transform duration-300 hover:scale-105"
           />
