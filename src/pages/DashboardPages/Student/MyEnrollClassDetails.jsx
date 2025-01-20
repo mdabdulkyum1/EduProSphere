@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useLocation, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Helmet } from 'react-helmet-async';
 
 const MyEnrollClassDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -127,6 +128,10 @@ const MyEnrollClassDetails = () => {
   };
 
   return (
+    <>
+    <Helmet>
+        <title>EduProSphere | Enroll Details</title>
+    </Helmet>
     <div className=" bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
       <h1 className="text-2xl font-bold mb-4">My Enrolled Class Details</h1>
 
@@ -251,6 +256,7 @@ const MyEnrollClassDetails = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

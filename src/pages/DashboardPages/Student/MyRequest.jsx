@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import Loading from "../../../components/shared/Loading/Loading";
+import { Helmet } from "react-helmet-async";
 
 const MyRequest = () => {
   const { user } = useAuth();
@@ -39,6 +40,10 @@ const MyRequest = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>EduProSphere | My Teacher Request</title>
+    </Helmet>
     <div className="p-6 bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text min-h-screen">
       <h1 className="text-2xl font-bold mb-6">My Request Status</h1>
       <div className="bg-white dark:bg-dark-background rounded shadow p-6">
@@ -63,6 +68,7 @@ const MyRequest = () => {
         </p>
       </div>
     </div>
+    </>
   );
 }; 
 

@@ -3,6 +3,7 @@ import useAuth from "./../../../hooks/GetAuthInfo/useAuth";
 import useAxiosSecure from "./../../../hooks/AxiosSecure/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAdminAlaClassP from "./useAdminAlaClassP";
+import { Helmet } from 'react-helmet-async';
 
 const AllClasses = () => {
   const { user } = useAuth();
@@ -157,6 +158,9 @@ const AllClasses = () => {
 
   return (
     <>
+    <Helmet>
+      <title>EduProSphere | All Class</title>
+    </Helmet>
       <div className="p-1 md:p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">All Classes</h2>
 

@@ -4,6 +4,7 @@ import useAxiosPublic from "../../hooks/AxiosPublic/useAxiosPublic";
 import Loading from "./../../components/shared/Loading/Loading";
 import { Link } from "react-router-dom";
 import usePagination from "../../hooks/pagination/usePagination";
+import { Helmet } from 'react-helmet-async';
 
 const AllClasses = () => {
   const { user } = useAuth();
@@ -32,6 +33,10 @@ const AllClasses = () => {
   }
 
   return (
+    <>
+    <Helmet>
+         <title>EduProSphere | All Ceases</title>
+    </Helmet>
     <section className="py-20 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
       <div className="container mx-auto px-6 lg:px-20">
         <h2 className="text-3xl font-bold mb-8 text-center mt-6">
@@ -70,8 +75,8 @@ const AllClasses = () => {
           ))}
         </div>
 
-        <div className="flex justify-around items-center">
-          <div className="">
+        <div className="md:flex justify-around items-center">
+          <div className="text-center my-4 md:my-0">
             Showing 1-10 of {count}
           </div>
           <div className="my-12">
@@ -107,6 +112,7 @@ const AllClasses = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

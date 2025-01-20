@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import useAxiosSecure from '../../../hooks/AxiosSecure/useAxiosSecure';
 import useAuth from '../../../hooks/GetAuthInfo/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 const MyEnrollments = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,6 +23,10 @@ const MyEnrollments = () => {
   }
 
   return (
+    <>
+    <Helmet>
+       <title>EduProSphere | My Enrollments</title>
+    </Helmet>
     <div className="min-h-screen bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text py-8">
       <h1 className="text-3xl font-bold text-center mb-8">My Enrolled Classes</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
@@ -48,6 +53,7 @@ const MyEnrollments = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

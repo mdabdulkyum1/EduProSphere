@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import useAuth from "../../../hooks/GetAuthInfo/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const MyProfile = () => {
   
@@ -18,6 +19,10 @@ const MyProfile = () => {
 
 
   return (
+    <>
+    <Helmet>
+        <title>EduProSphere | My Profile</title>
+    </Helmet>
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-6">My Profile</h2>
       <div className="flex items-center space-x-6">
@@ -39,6 +44,7 @@ const MyProfile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

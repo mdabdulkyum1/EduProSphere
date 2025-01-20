@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { imageUpload } from "../../../Api/utils";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AddClass = () => {
 
@@ -66,6 +67,9 @@ const AddClass = () => {
 
   return (
     <>
+    <Helmet>
+      <title>EduProSphere | Add Class</title>
+    </Helmet>
     <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-2xl font-bold mb-6">Add New Class</h2>
       

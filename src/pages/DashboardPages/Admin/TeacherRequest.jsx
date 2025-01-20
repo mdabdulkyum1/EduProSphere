@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import Swal from 'sweetalert2';
 import useTeacherPagi from "../../../hooks/pagination/useTeacherPagi";
+import { Helmet } from "react-helmet-async";
 
 
 const TeacherRequest = () => {
@@ -143,6 +144,10 @@ const TeacherRequest = () => {
 
   
     return (
+      <>
+      <Helmet>
+        <title>EduProSphere | Teach Request</title>
+      </Helmet>
       <div className="p-6 bg-light-background dark:bg-dark-background min-h-screen">
         <h2 className="text-3xl font-bold text-light-text dark:text-dark-text mb-6">
           Teacher Requests : {teacherRequests.length}
@@ -251,6 +256,7 @@ const TeacherRequest = () => {
           </div>
         </div>
       </div>
+      </>
     );
   };
   

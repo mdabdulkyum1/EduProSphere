@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../../Api/utils";
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -168,7 +169,11 @@ const MyClass = () => {
   };
 
   return (
-    <div className="p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
+    <>
+    <Helmet>
+      <title>EduProSphere | My Class</title>
+    </Helmet>
+    <div className="lg:p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-light-text dark:text-dark-text">
         My Classes
       </h2>
@@ -242,6 +247,7 @@ const MyClass = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

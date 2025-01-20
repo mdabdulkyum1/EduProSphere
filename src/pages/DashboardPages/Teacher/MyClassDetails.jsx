@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import useAuth from "../../../hooks/GetAuthInfo/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const MyClassDetails = () => {
   const { user } = useAuth();
@@ -145,6 +146,10 @@ const MyClassDetails = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>EduProSphere | My Class Details</title>
+    </Helmet>
     <div className="p-6 bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
       <h1 className="text-2xl font-bold mb-4">Class Details</h1>
 
@@ -229,6 +234,7 @@ const MyClassDetails = () => {
 
       </div>
     </div>
+    </>
   );
 };
 

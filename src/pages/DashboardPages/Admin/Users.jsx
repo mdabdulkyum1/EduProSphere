@@ -3,6 +3,7 @@ import useAuth from './../../../hooks/GetAuthInfo/useAuth';
 import useAxiosSecure from '../../../hooks/AxiosSecure/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useUserPagination from '../../../hooks/pagination/useUserPagination';
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -91,6 +92,10 @@ const Users = () => {
 
 
   return (
+    <>
+    <Helmet>
+      <title>EduProSphere | Users</title>
+    </Helmet>
       <div className="p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Users</h2>
 
@@ -171,6 +176,7 @@ const Users = () => {
           </div>
         </div>
       </div>
+    </>
     );
   };
   

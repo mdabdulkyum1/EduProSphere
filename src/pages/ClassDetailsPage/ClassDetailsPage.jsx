@@ -3,6 +3,7 @@ import useAuth from '../../hooks/GetAuthInfo/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/AxiosPublic/useAxiosPublic';
 import Loading from '../../components/shared/Loading/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const ClassDetailsPage = () => {
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ const ClassDetailsPage = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>EduProSphere | Class Details</title>
+    </Helmet>
     <div className="min-h-screen flex items-center justify-center bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text p-6">
       <div className="max-w-4xl w-full bg-white dark:bg-dark-background rounded-xl shadow-lg border border-light-border dark:border-dark-border">
         <div className="grid md:grid-cols-2">
@@ -66,6 +71,7 @@ const ClassDetailsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
