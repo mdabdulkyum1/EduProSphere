@@ -3,6 +3,15 @@
 
 # EduManage: Revolutionizing Education Management
 
+
+###
+
+<div align="center">
+  <img height="200"  src="https://i.ibb.co.com/TqWbgGHF/Home.png"  />
+</div>
+
+###
+
 ## About EduManage
 
 EduManage is a robust and user-friendly platform designed to revolutionize the way educational institutions, tutors, and students interact. Leveraging the power of the MERN stack (MongoDB, Express.js, React, and Node.js), EduManage aims to make skill learning and class management more efficient and accessible than ever before.
