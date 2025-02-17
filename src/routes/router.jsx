@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "class-details/:id",
-                element: <PrivateRoute><ClassDetailsPage></ClassDetailsPage></PrivateRoute>
+                element: <ClassDetailsPage></ClassDetailsPage>
             },
             {
                 path: "payment",

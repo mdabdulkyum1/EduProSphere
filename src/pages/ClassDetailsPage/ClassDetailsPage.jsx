@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../../hooks/GetAuthInfo/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/AxiosPublic/useAxiosPublic';
-import Loading from '../../components/shared/Loading/Loading';
 import { Helmet } from 'react-helmet-async';
 
 const ClassDetailsPage = () => {
@@ -14,7 +13,6 @@ const ClassDetailsPage = () => {
 
   const { data: classDetails = {}, isLoading } = useQuery({
     queryKey: ['class-details', user?.email],
-    enabled: !!user?.email,
     queryFn: async () => {
       const { data } = await axiosPublic.get(`class-details/${id}`);
       return data;
@@ -22,7 +20,25 @@ const ClassDetailsPage = () => {
   });
 
   if(isLoading){
-    return <Loading message='details...'></Loading>
+    return  ( <div className="min-h-screen flex items-center justify-center bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text p-6">
+      <div className="max-w-4xl w-full bg-white dark:bg-dark-background rounded-xl shadow-lg border border-light-border dark:border-dark-border">
+        <div className="grid md:grid-cols-2">
+          {/* Left Section - Image Skeleton */}
+          <div className="h-full">
+            <div className="skeleton w-full h-64 md:h-full rounded-l-xl md:rounded-none"></div>
+          </div>
+
+          {/* Right Section - Details Skeleton */}
+          <div className="p-6 space-y-6">
+            <div className="skeleton h-8 w-3/4"></div>
+            <div className="skeleton h-4 w-1/2"></div>
+            <div className="skeleton h-20 w-full"></div>
+            <div className="skeleton h-6 w-1/4"></div>
+            <div className="skeleton btn  w-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>)
   }
 
   const handlePayment = (id) => {
