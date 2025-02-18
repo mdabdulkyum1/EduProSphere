@@ -164,8 +164,8 @@ const AllClasses = () => {
       <div className="p-1 md:p-6 bg-white dark:bg-dark-background rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">All Classes</h2>
 
-        <div className="relative">
-          <div className="absolute top-7 left-0 md:static">
+        <div className="">
+          <div className="">
             <div className="overflow-x-auto">
               <table className="table table-xs md:table-lg table-pin-rows table-pin-cols border-collapse border border-gray-200 dark:border-gray-700">
                 <thead>
@@ -270,8 +270,8 @@ const AllClasses = () => {
               </table>
             </div>
 
-            <div className="flex justify-around items-center">
-              <div className="">Showing 1-10 of {count}</div>
+            <div className="flex flex-col md:flex-row md:justify-around items-center">
+              <div className="mt-3">Showing 1-10 of {count}</div>
               <div className="my-12">
                 <div className="text-center pagination-div">
                   <button

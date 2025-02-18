@@ -140,8 +140,8 @@ const Users = () => {
 
 
 
-        <div className="flex justify-around items-center">
-          <div className="">
+        <div className="flex flex-col md:flex-row md:justify-around items-center">
+          <div className="mt-3">
             Showing 1-10 of {count}
           </div>
           <div className="my-12">

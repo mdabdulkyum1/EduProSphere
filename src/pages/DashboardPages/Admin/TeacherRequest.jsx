@@ -149,7 +149,7 @@ const TeacherRequest = () => {
         <title>EduProSphere | Teach Request</title>
       </Helmet>
       <div className="p-6 bg-light-background dark:bg-dark-background min-h-screen">
-        <h2 className="text-3xl font-bold text-light-text dark:text-dark-text mb-6">
+        <h2 className="text-xl lg:text-3xl font-bold text-light-text dark:text-dark-text mb-6">
           Teacher Requests : {teacherRequests.length}
         </h2>
 
@@ -220,8 +220,8 @@ const TeacherRequest = () => {
 
 
 
-        <div className="flex justify-around items-center">
-          <div className="">
+        <div className="flex flex-col md:flex-row md:justify-around items-center">
+          <div className="mt-3">
             Showing 1-10 of {count}
           </div>
           <div className="my-12">
