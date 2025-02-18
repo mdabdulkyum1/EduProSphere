@@ -93,24 +93,33 @@ const PopularClasses = () => {
         >
           {popularClasses.map((course) => (
             <SwiperSlide key={course._id}>
-              <div className="bg-white dark:bg-dark-background rounded-lg shadow-md overflow-hidden">
-                <img
-                  src={course.photoUrl}
-                  alt={course.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-light-text dark:text-dark-text mb-2">
-                    {course.title}
-                  </h3>
-                  <p className="text-sm text-light-text dark:text-dark-text mb-4">
-                    {course.description.length > 60 ? `${course.description.slice(0,60)}...` : course.description}
-                  </p>
-                  <p className="text-sm font-medium text-accent">
-                    Enrollment: {course.totalEnrolment}
-                  </p>
-                </div>
-              </div>
+             <div className="bg-white dark:bg-dark-background rounded-lg shadow-md overflow-hidden">
+  {/* Course Image */}
+  <img
+    src={course.photoUrl}
+    alt={course.title}
+    className="w-full h-48 object-cover"
+  />
+
+  {/* Content Section */}
+  <div className="p-6">
+    {/* Title - Always 2 Lines Max */}
+    <h3 className="text-xl font-semibold text-light-text dark:text-dark-text mb-2 min-h-[3.5rem] line-clamp-2">
+      {course.title}
+    </h3>
+
+    {/* Description with Limit */}
+    <p className="text-sm text-light-text dark:text-dark-text mb-4">
+      {course.description.length > 60 ? `${course.description.slice(0, 60)}...` : course.description}
+    </p>
+
+    {/* Enrollment Count */}
+    <p className="text-sm font-medium text-accent">
+      Enrollment: {course.totalEnrolment}
+    </p>
+  </div>
+</div>
+
             </SwiperSlide>
           ))}
         </Swiper>
