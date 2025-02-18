@@ -1,6 +1,5 @@
-
-import communityImg from '../../assets/join.png'
-
+import communityImg from "../../assets/join.png";
+import { Link } from 'react-router-dom';
 
 const JoinCommunitySection = () => {
   return (
@@ -26,9 +25,11 @@ const JoinCommunitySection = () => {
               <strong>100+</strong> successful career transitions
             </li>
           </ul>
-          <button className="mt-6 px-8 py-4 bg-accent text-primary font-semibold rounded-lg shadow-md hover:bg-light-background hover:text-light-text dark:hover:bg-dark-text dark:hover:text-dark-background transition duration-300">
-            Join Now
-          </button>
+          <Link to="/all-classes">
+            <button className="mt-6 px-8 py-4 bg-accent text-primary font-semibold rounded-lg shadow-md hover:bg-light-background hover:text-light-text dark:hover:bg-dark-text dark:hover:text-dark-background transition duration-300">
+              Join Now
+            </button>
+          </Link>
         </div>
 
         {/* Right Side: Image */}
