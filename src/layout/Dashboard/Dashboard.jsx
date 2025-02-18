@@ -176,7 +176,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-grow md:p-6 lg:ml-64">
         <h2 className="text-3xl font-bold px-6 mt-12 md:mt-0 mb-6">
-          Welcome, {user?.displayName} <span className="text-primary">{role || "N/A"}</span>
+          Welcome, {user?.displayName}
         </h2>
         <div className="space-y-8">
           {role === "student" && <StudentDashboard />}
