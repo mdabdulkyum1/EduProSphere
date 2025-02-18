@@ -8,6 +8,7 @@ import PartnersSection from "./PartnersSection";
 import PopularClasses from "./PopularClasses";
 import StatsSection from "./StatsSection";
 import WhyChooseUsSection from "./WhyChooseUsSection";
+import AboutUs from "./AboutUs";
 
 const Home = () => {
     return (
@@ -22,6 +23,7 @@ const Home = () => {
             <FeedbackSection></FeedbackSection>
             <StatsSection></StatsSection>
             <InspireTeachersSection></InspireTeachersSection>
+            <AboutUs></AboutUs>
             <LearningPathsSection></LearningPathsSection>
             <JoinCommunitySection></JoinCommunitySection>
             <WhyChooseUsSection></WhyChooseUsSection>
