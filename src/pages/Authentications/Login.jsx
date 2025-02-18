@@ -12,7 +12,9 @@ import { loadCaptchaEnginge, LoadCanvasTemplate } from "react-simple-captcha";
 
 const Login = () => {
   const [err, setErr] = useState("");
+
   const {
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -22,7 +24,6 @@ const Login = () => {
   const { loginUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
   const targetPath = location?.state ? `${location.state}` : "/";
 
   const onSubmit = async (data) => {
@@ -50,6 +51,27 @@ const Login = () => {
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
+
+
+
+const handelLogIn = (role) => {
+  if (role === "admin") {
+    setValue("email", "admin@gmail.com");
+    setValue("password", "Admin1");
+    setValue("captcha", "1f3k3sf3");
+  }
+  if (role === "teacher") {
+    setValue("email", "teacher@gmail.com");
+    setValue("password", "Teacher1");
+    setValue("captcha", "1f3k3sf3");
+  }
+  if (role === "user") {
+    setValue("email", "user@gmail.com");
+    setValue("password", "User123");
+    setValue("captcha", "1f3k3sf3");
+  }
+};
+
 
   return (
     <>
@@ -86,6 +108,11 @@ const Login = () => {
             <h2 className="text-2xl font-bold mb-6 text-center md:text-left text-primary dark:text-accent">
               Login
             </h2>
+            <div className="flex items-center gap-3">
+              <button onClick={()=> handelLogIn("admin")} className="btn bg-primary text-white">Admin</button>
+              <button onClick={()=> handelLogIn("teacher")} className="btn bg-accent">Teacher</button>
+              <button onClick={()=> handelLogIn("user")} className="btn ">User</button>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Email Input */}
               <div>
