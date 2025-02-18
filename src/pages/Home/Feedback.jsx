@@ -7,13 +7,15 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./../../hooks/AxiosPublic/useAxiosPublic";
 import ReactStars from "react-rating-stars-component";
 
-
-
 const FeedbackSection = () => {
   const axiosPublic = useAxiosPublic();
 
   // Fetch feedbacks from the backend
-  const { data: feedbacks = [], isLoading, isError } = useQuery({
+  const {
+    data: feedbacks = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["feedbacks"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/all-feedbacks");
@@ -92,36 +94,59 @@ const FeedbackSection = () => {
           }}
         >
           {/* Render dynamic feedbacks */}
-          {feedbacks.map((feedback) => (
-            <SwiperSlide key={feedback._id}>
-              <div className="bg-white dark:bg-dark-background rounded-lg shadow-md p-6">
-                <div className="flex items-center mb-4">
-                  <img
-                    src={feedback.image}
-                    alt={feedback.name}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-accent"
-                  />
-                  <div className="ml-4">
-                    <h4 className="text-lg font-semibold text-light-text dark:text-dark-text">
-                      {feedback.name}
-                    </h4>
-                    <p className="text-sm text-secondary">{feedback.classTitle}</p>
+          {feedbacks.map((feedback) => {
+            return (
+              <SwiperSlide key={feedback._id}>
+                <div className="relative bg-white dark:bg-dark-background rounded-xl shadow-lg p-6 max-w-md mx-auto my-6">
+                  {/* Top Quote Icon */}
+                  <div className="absolute -top-2 left-6 bg-primary text-white w-8 h-8 flex items-center justify-center rounded-full text-xl pt-2">
+                    &#8220;
+                  </div>
+
+                  <div className="flex items-center">
+                    {/* Avatar */}
+                    <div className="w-20 h-20 rounded-full border-4 border-primary flex items-center justify-center bg-gray-100">
+                      <img
+                        src={feedback.image}
+                        alt={feedback.name}
+                        className="w-16 h-16 rounded-full object-cover"
+                      />
+                    </div>
+
+                    <div className="ml-4">
+                      {/* Name & Designation */}
+                      <h4 className="text-lg font-semibold text-light-text dark:text-dark-text">
+                        {feedback.name}
+                      </h4>
+                      <p className="text-sm text-secondary">
+                        {feedback.classTitle}
+                      </p>
+
+                      {/* Star Rating */}
+                      <ReactStars
+                        count={5}
+                        value={feedback.rating}
+                        size={18}
+                        edit={false}
+                        isHalf={true}
+                        activeColor="#FFB400"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Feedback Text */}
+                  <p className="text-sm text-light-text dark:text-dark-text italic mt-4">
+                    {feedback.description}
+                  </p>
+
+                  {/* Bottom Quote Icon */}
+                  <div className="absolute -bottom-3 right-6 bg-primary text-white w-8 h-8 flex items-center justify-center rounded-full text-xl pt-2">
+                    &#8221;
                   </div>
                 </div>
-                <p className="text-sm text-light-text dark:text-dark-text italic mb-4">
-                  {feedback.description}
-                </p>
-                <ReactStars
-                  count={5}
-                  value={feedback.rating}
-                  size={24}
-                  edit={false}
-                  isHalf={true}
-                  activeColor="#ffd700"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>
