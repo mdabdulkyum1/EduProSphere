@@ -7,6 +7,7 @@ import LearningPathsSection from "./LearningPathsSection";
 import PartnersSection from "./PartnersSection";
 import PopularClasses from "./PopularClasses";
 import StatsSection from "./StatsSection";
+import WhyChooseUsSection from "./WhyChooseUsSection";
 
 const Home = () => {
     return (
@@ -23,6 +24,7 @@ const Home = () => {
             <InspireTeachersSection></InspireTeachersSection>
             <LearningPathsSection></LearningPathsSection>
             <JoinCommunitySection></JoinCommunitySection>
+            <WhyChooseUsSection></WhyChooseUsSection>
         </div>
     );
 };
