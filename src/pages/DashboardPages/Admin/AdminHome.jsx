@@ -59,14 +59,14 @@ const AdminHome = () => {
           <h3 className="text-xl font-semibold">Total Classes</h3>
           <p className="text-3xl font-bold">{stats.totalClass}</p>
         </div>
-        <div className="p-4 bg-accent text-dark-text rounded-lg shadow-md">
+        <div className="p-4 bg-accent  rounded-lg shadow-md">
           <h3 className="text-xl font-semibold">Total Enrollments</h3>
           <p className="text-3xl font-bold">{stats.totalEnrollments}</p>
         </div>
       </div>
 
       {/* Bar Chart */}
-      <div className="mt-6 w-full h-72 sm:h-96 md:h-80 lg:h-96">
+      <div className="dark:text-white mt-6 w-full h-72 sm:h-96 md:h-80 lg:h-96">
         <Bar data={chartData} options={chartOptions} />
       </div>
     </div>

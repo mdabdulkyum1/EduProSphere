@@ -24,6 +24,7 @@ import MyEnrollClassDetails from "../pages/DashboardPages/Student/MyEnrollClassD
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AdminHome from "../pages/DashboardPages/Admin/AdminHome";
 import TeacherHome from "../pages/DashboardPages/Teacher/TeacherHome";
+import About from "../pages/About/About";
 
 const router = createBrowserRouter([
     {
@@ -49,7 +50,11 @@ const router = createBrowserRouter([
             {
                 path: "payment",
                 element: <PrivateRoute><Payment></Payment></PrivateRoute>
-            }
+            },
+            {
+                path: "about",
+                element: <About></About>
+            },
         ]
     },
     {

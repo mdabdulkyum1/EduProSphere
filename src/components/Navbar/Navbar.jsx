@@ -66,6 +66,21 @@ const Navbar = () => {
         </NavLink>
       </li>
       }
+      <li>
+  <NavLink
+    to="/about"
+    className={({ isActive }) =>
+      `px-4 py-2 rounded ${
+        isActive
+          ? "dark:text-primary border-b-2 border-primary"
+          : "text-light-text hover:text-primary dark:text-dark-text dark:hover:text-accent"
+      }`
+    }
+  >
+    About EduManage
+  </NavLink>
+</li>
+
     </>
   );
 

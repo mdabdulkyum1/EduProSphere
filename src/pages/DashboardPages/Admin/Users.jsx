@@ -102,7 +102,7 @@ const Users = () => {
 
       <div className="overflow-x-auto">
         <table className="table table-xs md:table-lg border-collapse border border-gray-200 dark:border-gray-700">
-          <thead>
+          <thead className="bg-primary text-white">
             <tr className="bg-gray-100 dark:bg-gray-800">
               <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Image</th>
               <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Name</th>

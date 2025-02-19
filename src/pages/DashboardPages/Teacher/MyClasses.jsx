@@ -4,7 +4,7 @@ import useAuth from "../../../hooks/GetAuthInfo/useAuth";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../../Api/utils";
 import { Link } from "react-router-dom";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -170,83 +170,87 @@ const MyClass = () => {
 
   return (
     <>
-    <Helmet>
-      <title>EduProSphere | My Class</title>
-    </Helmet>
-    <div className="lg:p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 px-6 text-light-text dark:text-dark-text">
-        My Classes
-      </h2>
+      <Helmet>
+        <title>EduProSphere | My Class</title>
+      </Helmet>
+      <div className="lg:p-6 bg-light-background dark:bg-dark-background rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6 px-6 text-light-text dark:text-dark-text">
+          My Classes
+        </h2>
 
-      {/* Displaying classes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {classes.map((cls) => (
-          <div
-            key={cls._id}
-            className="border border-light-border dark:border-dark-border rounded-lg p-4 bg-white dark:bg-dark-background"
-          >
-            {/* Image */}
-            <img
-              src={cls.photoUrl}
-              alt={cls.title}
-              className="w-full h-32 object-cover rounded-t-md mb-4"
-            />
-
-            {/* Title */}
-            <h3 className="text-lg font-bold mb-2 text-light-text dark:text-dark-text">
-              {cls.title}
-            </h3>
-
-            {/* Name & Email */}
-            <p className="text-sm text-secondary mb-1">Name: {cls.name}</p>
-            <p className="text-sm text-secondary mb-3">Email: {cls.email}</p>
-
-            {/* Price & Description */}
-            <p className="text-sm text-accent mb-2">Price: ${cls.price}</p>
-            <p className="text-sm text-light-text dark:text-dark-text mb-4">
-              {cls.description}
-            </p>
-
-            {/* Status */}
-            <p
-              className={`text-sm font-semibold mb-4 ${
-                cls.status === "pending" ? "text-yellow-500" : "text-green-500"
-              }`}
+        {/* Displaying classes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {classes.map((cls) => (
+            <div
+              key={cls._id}
+              className="border border-light-border dark:border-dark-border rounded-lg p-4 bg-white dark:bg-dark-background"
             >
-              Status: {cls.status}
-            </p>
+              {/* Image */}
+              <img
+                src={cls.photoUrl}
+                alt={cls.title}
+                className="w-full h-32 object-cover rounded-t-md mb-4"
+              />
 
-            {/* Actions */}
-            <div className="flex flex-wrap space-x-2">
-              <button
-                onClick={() =>
-                  handleUpdate(cls._id, cls.title, cls.price, cls.description)
-                }
-                className="bg-primary text-white py-1 px-3 rounded-md hover:bg-green-600"
+              {/* Title */}
+              <h3 className="text-lg font-bold mb-2 text-light-text dark:text-dark-text">
+                {cls.title}
+              </h3>
+
+              {/* Name & Email */}
+              <p className="text-sm text-secondary mb-1">Name: {cls.name}</p>
+              <p className="text-sm text-secondary mb-3">Email: {cls.email}</p>
+
+              {/* Price & Description */}
+              <p className="text-sm text-accent mb-2">Price: ${cls.price}</p>
+              <p className="text-sm text-light-text dark:text-dark-text mb-4">
+                {cls.description.length > 100
+                  ? cls.description.substring(0, 97) + "..."
+                  : cls.description}
+              </p>
+
+              {/* Status */}
+              <p
+                className={`text-sm font-semibold mb-4 ${
+                  cls.status === "pending"
+                    ? "text-yellow-500"
+                    : "text-green-500"
+                }`}
               >
-                Update
-              </button>
-              <button
-                onClick={() => handelDelete(cls._id)}
-                className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
-              >
-                Delete
-              </button>
-              <Link to={`/dashboard/my-class/${cls._id}`}>
+                Status: {cls.status}
+              </p>
+
+              {/* Actions */}
+              <div className="flex flex-wrap space-x-2">
                 <button
-                  className={`${
-                    cls.status === "pending" && "cursor-not-allowed"
-                  } bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
-                  disabled={cls.status === "pending"}
+                  onClick={() =>
+                    handleUpdate(cls._id, cls.title, cls.price, cls.description)
+                  }
+                  className="bg-primary text-white py-1 px-3 rounded-md hover:bg-green-600"
                 >
-                  See Details
+                  Update
                 </button>
-              </Link>
+                <button
+                  onClick={() => handelDelete(cls._id)}
+                  className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
+                >
+                  Delete
+                </button>
+                <Link to={`/dashboard/my-class/${cls._id}`}>
+                  <button
+                    className={`${
+                      cls.status === "pending" && "cursor-not-allowed"
+                    } bg-secondary text-white py-1 px-3 rounded-md hover:bg-blue-600`}
+                    disabled={cls.status === "pending"}
+                  >
+                    See Details
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };
