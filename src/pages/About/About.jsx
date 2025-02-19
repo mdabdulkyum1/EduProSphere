@@ -23,7 +23,7 @@ const About = () => {
           ].map((feature, index) => (
             <div key={index} className="text-center p-6 bg-white dark:bg-dark-background shadow-lg rounded-lg">
               <div className="text-4xl text-primary dark:text-accent mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold">{feature.title}</h3>
+              <h3 className="text-xl text-black dark:text-white font-semibold">{feature.title}</h3>
               <p className="mt-2 text-light-text dark:text-dark-text">{feature.desc}</p>
             </div>
           ))}
