@@ -52,14 +52,7 @@ const Dashboard = () => {
             </button>
           </div>
           <ul className="space-y-4">
-            <li>
-              <NavLink
-                to="/dashboard"
-                className="flex items-center space-x-2 hover:text-accent"
-              >
-                <FaHome /> <span>Home</span>
-              </NavLink>
-            </li>
+            
             {role === "student" && (
               <>
                 <li>
@@ -90,6 +83,14 @@ const Dashboard = () => {
             )}
             {role === "teacher" && (
               <>
+              <li>
+              <NavLink
+                to="/dashboard/teacher-home"
+                className="flex items-center space-x-2 hover:text-accent"
+              >
+                <FaHome /> <span>Home</span>
+              </NavLink>
+            </li>
                 <li>
                   <NavLink
                     to="/dashboard/add-class"
@@ -120,6 +121,14 @@ const Dashboard = () => {
 
             {role === "admin" && (
               <>
+              <li>
+              <NavLink
+                to="/dashboard"
+                className="flex items-center space-x-2 hover:text-accent"
+              >
+                <FaHome /> <span>Home</span>
+              </NavLink>
+            </li>
                 <li>
                   <NavLink
                     to="/dashboard/teacher-request"

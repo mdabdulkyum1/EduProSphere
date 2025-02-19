@@ -23,6 +23,7 @@ import MyClassDetails from "../pages/DashboardPages/Teacher/MyClassDetails";
 import MyEnrollClassDetails from "../pages/DashboardPages/Student/MyEnrollClassDetails";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AdminHome from "../pages/DashboardPages/Admin/AdminHome";
+import TeacherHome from "../pages/DashboardPages/Teacher/TeacherHome";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><AdminRoute><AllClass></AllClass></AdminRoute></PrivateRoute>
             },
             // teacher routes
+            {
+                path: "/dashboard/teacher-home",
+                element: <PrivateRoute><TeacherRoute><TeacherHome></TeacherHome></TeacherRoute></PrivateRoute>
+            },
             {
                 path: "add-class",
                 element: <PrivateRoute><TeacherRoute><AddClass></AddClass></TeacherRoute></PrivateRoute>

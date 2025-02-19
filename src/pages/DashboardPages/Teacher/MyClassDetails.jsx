@@ -178,56 +178,56 @@ const MyClassDetails = () => {
           >
             Create Assignment
           </button>
-
         </div>
       </div>
-          <div className="relative dark:bg-dark-background">
-            <div className="absolute top-7 left-0 md:static">
-              <div className="overflow-x-auto">
-                <table className="mt-4 dark:bg-dark-background table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
-                  <thead>
-                    <tr>
-                      <th className="p-2 border border-light-border dark:border-dark-border">
-                        Title
-                      </th>
-                      <th className="p-2 border border-light-border dark:border-dark-border">
-                        Description
-                      </th>
-                      <th className="p-2 border border-light-border dark:border-dark-border">
-                        Deadline
-                      </th>
-                      <th className="p-2 border border-light-border dark:border-dark-border">
-                        Submissions
-                      </th>
+      <div className="dark:bg-dark-background">
+       
+          <div className="overflow-x-auto">
+            <table className="mt-4 table table-xs md:table-lg border-collapse border border-light-border dark:border-dark-border">
+              <thead>
+                <tr>
+                  <th className="p-2 border border-light-border dark:border-dark-border">
+                    Title
+                  </th>
+                  <th className="p-2 border border-light-border dark:border-dark-border">
+                    Description
+                  </th>
+                  <th className="p-2 border border-light-border dark:border-dark-border">
+                    Deadline
+                  </th>
+                  <th className="p-2 border border-light-border dark:border-dark-border">
+                    Submissions
+                  </th>
+                </tr>
+              </thead>
+              {assignments.length > 0 ? (
+                <tbody>
+                  {/* Render assignments dynamically */}
+                  {assignments.map((assignment) => (
+                    <tr key={assignment._id}>
+                      <td className="p-2 border border-light-border dark:border-dark-border">
+                        {assignment.title}
+                      </td>
+                      <td className="p-2 border border-light-border dark:border-dark-border">
+                        {assignment?.description}
+                      </td>
+                      <td className="p-2 border border-light-border dark:border-dark-border">
+                        {assignment.deadline}
+                      </td>
+                      <td className="p-2 border border-light-border dark:border-dark-border">
+                        {assignment?.submissions?.length || "N/A"}
+                      </td>
                     </tr>
-                  </thead>
-                  {assignments.length > 0 ? (
-                    <tbody>
-                      {/* Render assignments dynamically */}
-                      {assignments.map((assignment) => (
-                        <tr key={assignment._id}>
-                          <td className="p-2 border border-light-border dark:border-dark-border">
-                            {assignment.title}
-                          </td>
-                          <td className="p-2 border border-light-border dark:border-dark-border">
-                            {assignment?.description}
-                          </td>
-                          <td className="p-2 border border-light-border dark:border-dark-border">
-                            {assignment.deadline}
-                          </td>
-                          <td className="p-2 border border-light-border dark:border-dark-border">
-                            {assignment?.submissions?.length || "N/A"}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  ) : (
-                    <h1>no assignments found</h1>
-                  )}
-                </table>
-              </div>
-            </div>
+                  ))}
+                </tbody>
+              ) : (
+                <h1>no assignments found</h1>
+              )}
+            </table>
           </div>
+ 
+      </div>
+
     </>
   );
 };

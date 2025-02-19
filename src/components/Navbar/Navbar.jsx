@@ -73,7 +73,7 @@ const Navbar = () => {
     <>
       <li>
         <NavLink
-          to="/dashboard"
+          to={`${role === "admin" ? "/dashboard" : "/dashboard/teacher-home"}`}
           className={({ isActive }) =>
             `px-4 py-2 rounded ${
               isActive
