@@ -191,7 +191,7 @@ const Dashboard = () => {
       </div>
 
       <section className="space-y-8 lg:w-10/12 lg:ml-64 p-6">
-        <h2 className="text-3xl font-bold px-6 mt-12 md:mt-0 mb-6">
+        <h2 className="text-xl md:text-3xl font-bold px-6 mt-12 md:mt-0 mb-6">
           Welcome, {user?.displayName}
         </h2>
         {role === "student" && <StudentDashboard />}

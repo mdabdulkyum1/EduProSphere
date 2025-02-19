@@ -6,7 +6,7 @@ import useAxiosSecure from "../../../hooks/AxiosSecure/useAxiosSecure";
 import { useLocation, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
 const MyEnrollClassDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -129,133 +129,137 @@ const MyEnrollClassDetails = () => {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>EduProSphere | Enroll Details</title>
-    </Helmet>
-    <div className=" bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
-      <h1 className="text-2xl font-bold mb-4">My Enrolled Class Details</h1>
+      </Helmet>
+      <div className=" bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text">
+        <h1 className="text-2xl font-bold mb-4">My Enrolled Class Details</h1>
 
-      {/* Teaching Evaluation Report Button */}
-      <button
-        className="bg-accent text-white py-2 px-4 rounded mb-6"
-        onClick={() => setShowModal(true)}
-      >
-        Teaching Evaluation Report (TER)
-      </button>
+        {/* Teaching Evaluation Report Button */}
+        <button
+          className="bg-accent text-white py-2 px-4 rounded mb-6"
+          onClick={() => setShowModal(true)}
+        >
+          Teaching Evaluation Report (TER)
+        </button>
 
-      {/* Assignments Table */}
-      
-<div className="relative">
-<div className="absolute top-12 left-0 md:static">
-      <div className="overflow-x-auto">
-      <table className="table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
-        <thead>
-          <tr className="bg-secondary ">
-            <th className="p-2 border">Title</th>
-            <th className="p-2 border">Description</th>
-            <th className="p-2 border">Total Marks</th>
-            <th className="p-2 border">Deadline</th>
-            <th className="p-2 border">Submission</th>
-          </tr>
-        </thead>
-        <tbody>
-          {assignments.map((assignment) => (
-            <tr
-              key={assignment._id}
-              className="hover:bg-light hover:dark:bg-dark"
-            >
-              <td className="p-2 border">{assignment.title}</td>
-              <td className="p-2 border">{assignment.description.length > 50 ? assignment.description.slice(0,50) : assignment.description }</td>
-              <td className="p-2 border">{assignment.totalMarks || "N/A"}</td>
-              <td className="p-2 border">{assignment.deadline}</td>
-              <td className="p-2 border">
-                <div className="flex items-center gap-2">
-                  <button
-                    className={`px-4 py-2 rounded text-white ${
-                      assignment?.submissions?.some(
-                        (d) => d.email === user?.email
-                      )
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-primary hover:bg-secondary"
-                    }`}
-                    onClick={() => handleAssignmentSubmit(assignment._id)}
-                    disabled={assignment?.submissions?.some(
-                      (d) => d.email === user?.email
-                    )}
+        {/* Assignments Table */}
+
+        <div className="">
+          <div className="overflow-x-auto">
+            <table className="table table-xs table-pin-rows table-pin-cols border border-light-border dark:border-dark-border">
+              <thead>
+                <tr className="bg-secondary ">
+                  <th className="p-2 border">Title</th>
+                  <th className="p-2 border">Description</th>
+                  <th className="p-2 border">Total Marks</th>
+                  <th className="p-2 border">Deadline</th>
+                  <th className="p-2 border">Submission</th>
+                </tr>
+              </thead>
+              <tbody>
+                {assignments.map((assignment) => (
+                  <tr
+                    key={assignment._id}
+                    className="hover:bg-light hover:dark:bg-dark"
                   >
-                    Submit
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
-</div>
-</div>
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white dark:bg-dark-background p-6 rounded shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">
-              Teaching Evaluation Report
-            </h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* Description */}
-              <div className="flex flex-col mb-4">
-                <label
-                  htmlFor="description"
-                  className="text-sm font-medium mb-1"
-                >
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  rows="3"
-                  className="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Enter feedback"
-                  {...register("description", { required: true })}
-                ></textarea>
-              </div>
-
-              {/* Ratings */}
-              <div className="flex flex-col mb-4">
-                <label htmlFor="rating" className="text-sm font-medium mb-1">
-                  Ratings
-                </label>
-                <ReactStars
-                  count={5}
-                  onChange={handleRatingChange}
-                  size={20}
-                  value={rating}
-                  activeColor="#FFCA28"
-                  emptyColor="#E0E0E0"
-                />
-              </div>
-
-              {/* Buttons */}
-              <div className="flex justify-end gap-4">
-                <button
-                  type="button"
-                  className="bg-secondary text-white px-4 py-2 rounded"
-                  onClick={() => setShowModal(false)}
-                >
-                  Close
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-4 py-2 rounded"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
+                    <td className="p-2 border">{assignment.title}</td>
+                    <td className="p-2 border">
+                      {assignment.description.length > 50
+                        ? assignment.description.slice(0, 50)
+                        : assignment.description}
+                    </td>
+                    <td className="p-2 border">
+                      {assignment.totalMarks || "N/A"}
+                    </td>
+                    <td className="p-2 border">{assignment.deadline}</td>
+                    <td className="p-2 border">
+                      <div className="flex items-center gap-2">
+                        <button
+                          className={`px-4 py-2 rounded text-white ${
+                            assignment?.submissions?.some(
+                              (d) => d.email === user?.email
+                            )
+                              ? "bg-gray-400 cursor-not-allowed"
+                              : "bg-primary hover:bg-secondary"
+                          }`}
+                          onClick={() => handleAssignmentSubmit(assignment._id)}
+                          disabled={assignment?.submissions?.some(
+                            (d) => d.email === user?.email
+                          )}
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white dark:bg-dark-background p-6 rounded shadow-lg w-96">
+              <h2 className="text-xl font-bold mb-4">
+                Teaching Evaluation Report
+              </h2>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {/* Description */}
+                <div className="flex flex-col mb-4">
+                  <label
+                    htmlFor="description"
+                    className="text-sm font-medium mb-1"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    id="description"
+                    rows="3"
+                    className="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter feedback"
+                    {...register("description", { required: true })}
+                  ></textarea>
+                </div>
+
+                {/* Ratings */}
+                <div className="flex flex-col mb-4">
+                  <label htmlFor="rating" className="text-sm font-medium mb-1">
+                    Ratings
+                  </label>
+                  <ReactStars
+                    count={5}
+                    onChange={handleRatingChange}
+                    size={20}
+                    value={rating}
+                    activeColor="#FFCA28"
+                    emptyColor="#E0E0E0"
+                  />
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end gap-4">
+                  <button
+                    type="button"
+                    className="bg-secondary text-white px-4 py-2 rounded"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-primary text-white px-4 py-2 rounded"
+                  >
+                    Send
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };
