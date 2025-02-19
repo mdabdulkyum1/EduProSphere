@@ -55,8 +55,8 @@ const About = () => {
             { name: "Michael Lee", feedback: "Highly recommend EduManage for students and tutors!" }
           ].map((testimonial, index) => (
             <div key={index} className="p-6 bg-white dark:bg-dark-background shadow-lg rounded-lg text-center">
-              <p className="text-lg font-semibold">{testimonial.feedback}</p>
-              <p className="mt-2 text-sm text-light-text dark:text-dark-text">- {testimonial.name}</p>
+              <p className="text-lg dark:text-white font-semibold">{testimonial.feedback}</p>
+              <p className="mt-2 text-sm dark:text-white">- {testimonial.name}</p>
             </div>
           ))}
         </div>

@@ -64,21 +64,21 @@ const AllClasses = () => {
 
                 {/* Instructor & Price (Aligned Properly) */}
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm text-gray-500">by {classItem.name}</p>
+                  <p className="text-sm">by {classItem.name}</p>
                   <p className="text-lg font-bold text-primary">
                     ${classItem.price}
                   </p>
                 </div>
 
                 {/* Description (Consistent Height) */}
-                <p className="text-sm text-gray-700 mb-4 flex-1">
+                <p className="text-sm mb-4 flex-1">
                   {classItem.description.length > 50
                     ? `${classItem.description.slice(0, 50)}...`
                     : classItem.description}
                 </p>
 
                 {/* Total Enrollments */}
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-sm mb-4">
                   Total Enrollments: {classItem.totalEnrolment || 0}
                 </p>
 
